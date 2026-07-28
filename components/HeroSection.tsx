@@ -1,0 +1,126 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { ArrowRight, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
+
+const platforms = ["Instagram", "TikTok", "YouTube"];
+
+export default function HeroSection() {
+  const { t } = useLanguage();
+  const [displayText, setDisplayText] = useState("");
+
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+    let isMounted = true;
+    let currentText = "";
+    let isDeleting = false;
+    let loopNum = 0;
+
+    const tick = () => {
+      if (!isMounted) return;
+
+      const i = loopNum % platforms.length;
+      const fullText = platforms[i];
+
+      if (isDeleting) {
+        currentText = fullText.substring(0, currentText.length - 1);
+      } else {
+        currentText = fullText.substring(0, currentText.length + 1);
+      }
+
+      setDisplayText(currentText);
+
+      let delta = 80;
+      if (isDeleting) delta = 40;
+
+      if (!isDeleting && currentText === fullText) {
+        delta = 1500;
+        isDeleting = true;
+      } else if (isDeleting && currentText === "") {
+        isDeleting = false;
+        loopNum++;
+        delta = 500;
+      }
+
+      timeout = setTimeout(tick, delta);
+    };
+
+    timeout = setTimeout(tick, 100);
+    return () => {
+      isMounted = false;
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  return (
+    <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pt-20" style={{ background: 'radial-gradient(ellipse 70% 60% at 10% 0%, rgba(240,148,51,0.10) 0%, transparent 55%), radial-gradient(ellipse 60% 50% at 90% 10%, rgba(220,39,67,0.08) 0%, transparent 55%)' }}>
+      {/* Background blobs */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-[15%] w-96 h-96 bg-red-500/8 rounded-full blur-[80px]" />
+        <div className="absolute bottom-1/4 right-[10%] w-80 h-80 bg-orange-500/8 rounded-full blur-[70px]" />
+        <div className="absolute top-[10%] right-[30%] w-64 h-64 bg-violet-500/6 rounded-full blur-[60px]" />
+      </div>
+
+      <div className="relative z-10 max-w-5xl mx-auto text-center">
+        {/* AI badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[13px] font-normal tracking-wide shadow-[0_0_20px_rgba(220,39,67,0.1)] mb-7 group animate-[revealUp_0.6s_cubic-bezier(0.16,1,0.3,1)_both]">
+          <Sparkles size={14} className="animate-[pulse-soft_2s_cubic-bezier(0.4,0,0.6,1)_infinite]" />
+          <span>{t("common.aiPowered")}</span>
+          <span className="w-px h-3 bg-red-400/30" />
+          <span className="text-red-300/60 text-[11px]">{t("common.new")}</span>
+        </div>
+
+        {/* H1 */}
+        <h1 className="animate-[revealUp_0.6s_cubic-bezier(0.16,1,0.3,1)_both] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal text-gray-900 mb-6 leading-[1.2] sm:leading-[1.3] tracking-tight">
+          {t("landing.heroTitleStart")}{" "}
+          <span className="inline-flex items-center min-w-36 sm:min-w-56 md:min-w-80 lg:min-w-96 text-left whitespace-nowrap">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-[#f09433] via-[#dc2743] to-[#bc1888]">
+              {displayText || "\u200B"}
+            </span>
+            <span className="ml-1 w-1 h-[0.95em] bg-linear-to-b from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-full animate-[cursor-blink_0.8s_step-end_infinite]" />
+          </span>
+          <br />
+          {t("landing.heroTitleEnd")}
+          <br />{" "}
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-[#f09433] via-[#dc2743] to-[#bc1888]">
+            {t("landing.heroTitleLine3")}
+          </span>
+        </h1>
+
+        {/* Subtitle */}
+        <p className="animate-[revealUp_0.6s_cubic-bezier(0.16,1,0.3,1)_both] text-gray-500 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed px-4">
+          {t("landing.heroSubtitle")}
+        </p>
+
+        {/* CTA Buttons */}
+        <div className="animate-[revealUp_0.6s_cubic-bezier(0.16,1,0.3,1)_both] flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8 px-4">
+          <Link
+            href="/register"
+            className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 bg-linear-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-2xl text-white font-medium text-sm sm:text-base hover:shadow-2xl hover:shadow-red-500/30 hover:-translate-y-0.5 transition-all duration-200 w-fit"
+          >
+            {t("landing.heroCta")}
+            <ArrowRight
+              size={18}
+              className="group-hover:translate-x-1 transition-transform"
+            />
+          </Link>
+          <Link
+            href="/#features"
+            className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-white border border-gray-200 rounded-2xl text-gray-700 font-normal hover:bg-gray-50 hover:border-gray-300 hover:-translate-y-0.5 transition-all duration-200 shadow-sm w-fit"
+          >
+            {t("common.learnMore")}
+          </Link>
+        </div>
+
+        <div className="animate-[revealUp_0.6s_cubic-bezier(0.16,1,0.3,1)_both] mb-12 sm:mb-16 px-4">
+          <p className="mx-auto max-w-2xl text-xs sm:text-sm md:text-base font-medium text-gray-500 leading-relaxed">
+            Il lancio iniziale è pensato per essere semplice, chiaro e
+            affidabile, con un onboarding guidato e contenuti reali.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
