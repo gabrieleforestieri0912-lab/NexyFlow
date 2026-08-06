@@ -106,6 +106,8 @@ const App = {
         this.switchChartType(target.getAttribute('data-type'));
       } else if (action === 'go-chat') {
         this.switchTab('chat');
+      } else if (action === 'open-login' || action === 'open-register') {
+        chrome.tabs.create({ url: `${API}${action === 'open-login' ? '/login' : '/register'}` });
       } else if (action === 'suggest-prompt') {
         const prompt = target.getAttribute('data-prompt');
         if (prompt) { this.switchTab('chat'); this.sendMsg(prompt); }
@@ -159,16 +161,19 @@ const App = {
   renderAuth() {
     document.getElementById('root').innerHTML = `
       <div class="auth">
-          <div class="auth-logo">
-            <img src="nextbrand.png" alt="NextBrand">
-            <h1>NextBrand</h1>
-            <p>${this.__("subtitle")}</p>
-</div>
-      <div class="acct-footer">${this.__("footer")}</div>
+        <div class="auth-logo">
+          <img src="nextbrand.png" alt="NextBrand">
+          <h1>NextBrand</h1>
+          <p>${this.__("subtitle")}</p>
+        </div>
+        <div class="auth-cta">
+          <p class="auth-cta-text">${this.__("authPrompt")}</p>
+          <button class="btn btn-p" data-action="open-login">${this.__("login")}</button>
+          <button class="btn btn-s" data-action="open-register">${this.__("createAccount")}</button>
+        </div>
+        <div class="acct-footer">${this.__("footer")}</div>
+      </div>
     `;
-    this.authMode = 'login';
-    this.codeStep = 'init';
-    document.getElementById('form').addEventListener('submit', (e) => this.handleAuthSubmit(e));
   },
 
   switchAuthTab(mode) {
@@ -475,7 +480,7 @@ const App = {
       const hasPlatforms = Object.values(this.analytics?.platforms || {}).some(p => p?.connected);
       if (!hasPlatforms) {
         return `<div class="chart-empty">
-          <div style="font-size:32px;opacity:.3">ðŸ“Š</div>
+          <div style="font-size:14px;color:var(--text3);margin-bottom:8px">Nessun dato</div>
           <div>${this.__("noData")}</div>
           <button class="btn btn-p btn-sm" style="width:auto;margin-top:8px" data-action="switch-tab" data-tab="connect">${this.__("connect")} ${this.__("connectPg")}</button>
         </div>`;

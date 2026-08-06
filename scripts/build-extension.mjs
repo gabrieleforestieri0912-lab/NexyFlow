@@ -28,9 +28,8 @@ fs.mkdirSync(distDir);
 console.log('📂 Copying assets from public...');
 const publicDir = path.join(rootDir, 'public');
 const assetsToCopy = ['manifest.json', 'background.js', 'nextbrand.png', 'sidebar.html', 'sidebar.js', 'extension-i18n.js'];
-const contentScripts = fs.readdirSync(publicDir).filter(f => f.startsWith('content-'));
 
-[...assetsToCopy, ...contentScripts].forEach(file => {
+assetsToCopy.forEach(file => {
   const src = path.join(publicDir, file);
   if (fs.existsSync(src)) {
     fs.copyFileSync(src, path.join(distDir, file));

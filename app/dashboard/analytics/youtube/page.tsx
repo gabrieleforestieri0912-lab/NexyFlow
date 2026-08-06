@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Users, Eye, Heart, MessageCircle, ThumbsUp, TrendingUp, Clock, ArrowUp, ArrowDown, Loader2, Activity, Target, BarChart3, Share2, Video, Play, Search, RefreshCw } from 'lucide-react'
+import { Users, Eye, Heart, MessageCircle, ThumbsUp, TrendingUp, Clock, ArrowUp, ArrowDown, Loader2, Activity, Target, BarChart3, Share2, Video, Play, Search, RefreshCw, Calendar } from 'lucide-react'
 import { YoutubeIcon } from '@/lib/icons'
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import ProtectedRoute from '@/components/ProtectedRoute'
@@ -335,19 +335,19 @@ export default function YouTubeAnalyticsPage() {
             </div>
             <div className="space-y-3">
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-sm text-white">📈 Il tuo CTR è del {data.clickThroughRate}%</p>
+                <p className="text-sm text-white flex items-center gap-2"><TrendingUp className="w-4 h-4 text-green-400 flex-shrink-0" /> Il tuo CTR è del {data.clickThroughRate}%</p>
                 <p className="text-xs text-gray-500 mt-1">{data.clickThroughRate > 5 ? 'Ottimo! I tuoi titoli e thumbnail stanno funzionando bene.' : 'Prova a ottimizzare thumbnail e titoli per aumentare il tasso di clic.'}</p>
               </div>
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-sm text-white">⏱️ Durata media visione: {data.avgViewDuration} min</p>
+                <p className="text-sm text-white flex items-center gap-2"><Clock className="w-4 h-4 text-cyan-400 flex-shrink-0" /> Durata media visione: {data.avgViewDuration} min</p>
                 <p className="text-xs text-gray-500 mt-1">{data.avgViewDuration > 6 ? 'Ottima fidelizzazione! I tuoi contenuti intrattengono il pubblico.' : 'Prova a rendere i video più coinvolgenti nei primi minuti.'}</p>
               </div>
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-sm text-white">🔍 La Ricerca YouTube è la tua fonte principale</p>
+                <p className="text-sm text-white flex items-center gap-2"><Search className="w-4 h-4 text-blue-400 flex-shrink-0" /> La Ricerca YouTube è la tua fonte principale</p>
                 <p className="text-xs text-gray-500 mt-1">Ottimizza titoli, descrizioni e tag per la SEO di YouTube per sfruttare al meglio il traffico da ricerca.</p>
               </div>
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-sm text-white">📅 Carichi {data.uploadFrequency}</p>
+                <p className="text-sm text-white flex items-center gap-2"><Calendar className="w-4 h-4 text-orange-400 flex-shrink-0" /> Carichi {data.uploadFrequency}</p>
                 <p className="text-xs text-gray-500 mt-1">La consistenza è fondamentale. Mantieni un programma di pubblicazione regolare per far crescere il canale.</p>
               </div>
             </div>

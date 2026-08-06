@@ -1,8 +1,12 @@
 {
   "manifest_version": 3,
   "name": "NextBrand - AI Personal Branding Assistant",
+  "short_name": "NextBrand",
   "version": "0.2.0",
-  "description": "Nextbrand è il tuo assistente AI per il personal branding sui social media. Analizza i tuoi profili Instagram, TikTok e YouTube per ottenere report dettagliati su engagement, crescita e performance dei contenuti. Ricevi suggerimenti personalizzati per migliorare la tua strategia, genera contenuti ottimizzati con l'intelligenza artificiale e scopri i migliori orari di pubblicazione. La sidebar si apre direttamente sui social per darti insight in tempo reale mentre navighi.",
+  "default_locale": "it",
+  "author": "NextBrand",
+  "homepage_url": "https://nextbrand.ai",
+  "description": "Assistente AI per il personal branding su Instagram, TikTok e YouTube.",
   "icons": {
     "16": "nextbrand.png",
     "48": "nextbrand.png",
@@ -21,29 +25,16 @@
   },
   "permissions": [
     "sidePanel",
-    "storage"
+    "storage",
+    "tabs"
   ],
   "host_permissions": [
     "http://localhost:3000/*",
-    "https://nextbrand.ai/*",
-    "https://www.instagram.com/*",
-    "https://www.tiktok.com/*",
-    "https://www.youtube.com/*"
+    "https://nextbrand.ai/*"
   ],
   "background": {
     "service_worker": "background.js"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": [
-        "content-instagram.js",
-        "content-tiktok.js",
-        "content-youtube.js"
-      ],
-      "run_at": "document_end"
-    }
-  ],
   "commands": {
     "toggle-sidebar": {
       "suggested_key": {

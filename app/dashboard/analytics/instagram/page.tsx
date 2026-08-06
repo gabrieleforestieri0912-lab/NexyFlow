@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Users, Eye, Heart, MessageCircle, Camera, Film, Layout, TrendingUp, Clock, ArrowUp, ArrowDown, Loader2, Activity, Target, BarChart3, Share2 } from 'lucide-react'
+import { Users, Eye, Heart, MessageCircle, Camera, Film, Layout, TrendingUp, Clock, ArrowUp, ArrowDown, Loader2, Activity, Target, BarChart3, Share2, Images } from 'lucide-react'
 import { InstagramIcon } from '@/lib/icons'
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import ProtectedRoute from '@/components/ProtectedRoute'
@@ -230,11 +230,15 @@ export default function InstagramAnalyticsPage() {
               </thead>
               <tbody>
                 {data.topPosts.map((post, i) => {
-                  const typeIcon = post.type === 'photo' ? '📷' : post.type === 'video' ? '🎬' : '📑'
                   const totalEngagement = ((post.likes + post.comments) / data.followers * 100).toFixed(1)
                   return (
                     <tr key={post.id} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors">
-                      <td className="py-3 text-white">{typeIcon} {post.type}</td>
+                      <td className="py-3 text-white">
+                        <span className="inline-flex items-center gap-1.5">
+                          {post.type === 'photo' ? <Camera className="w-4 h-4 text-orange-400" /> : post.type === 'video' ? <Film className="w-4 h-4 text-red-400" /> : <Images className="w-4 h-4 text-pink-400" />}
+                          {post.type}
+                        </span>
+                      </td>
                       <td className="py-3 text-white">{post.likes.toLocaleString()}</td>
                       <td className="py-3 text-white">{post.comments.toLocaleString()}</td>
                       <td className="py-3"><span className="text-green-400">{totalEngagement}%</span></td>
@@ -274,19 +278,19 @@ export default function InstagramAnalyticsPage() {
             </div>
             <div className="space-y-3">
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-sm text-white">📸 Il tuo engagement è del {engagementRate}%</p>
+                <p className="text-sm text-white flex items-center gap-2"><Camera className="w-4 h-4 text-pink-400 flex-shrink-0" /> Il tuo engagement è del {engagementRate}%</p>
                 <p className="text-xs text-gray-500 mt-1">{engagementRate > 4 ? 'Ottimo! Continua a pubblicare contenuti di qualità.' : 'Prova a utilizzare più Reel e contenuti interattivi per aumentare la reach organica.'}</p>
               </div>
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-sm text-white">⏰ Il momento migliore per pubblicare è {data.bestPostingTime}</p>
+                <p className="text-sm text-white flex items-center gap-2"><Clock className="w-4 h-4 text-cyan-400 flex-shrink-0" /> Il momento migliore per pubblicare è {data.bestPostingTime}</p>
                 <p className="text-xs text-gray-500 mt-1">I post pubblicati in questa fascia oraria ricevono in media più interazioni.</p>
               </div>
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-sm text-white">📊 Mix di contenuti: {contentMixData[1].value > contentMixData[0].value ? 'I video dominano il tuo feed' : 'Le foto sono il tuo formato principale'}</p>
+                <p className="text-sm text-white flex items-center gap-2"><BarChart3 className="w-4 h-4 text-blue-400 flex-shrink-0" /> Mix di contenuti: {contentMixData[1].value > contentMixData[0].value ? 'I video dominano il tuo feed' : 'Le foto sono il tuo formato principale'}</p>
                 <p className="text-xs text-gray-500 mt-1">Considera di alternare i formati per mantenere alto l'interesse del pubblico.</p>
               </div>
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-sm text-white">🎯 Copertura: {((data.reach / data.impressions) * 100).toFixed(0)}% delle impressioni sono utenti unici</p>
+                <p className="text-sm text-white flex items-center gap-2"><Target className="w-4 h-4 text-purple-400 flex-shrink-0" /> Copertura: {((data.reach / data.impressions) * 100).toFixed(0)}% delle impressioni sono utenti unici</p>
                 <p className="text-xs text-gray-500 mt-1">Un buon rapporto copertura/impressioni indica contenuti che raggiungono nuovo pubblico.</p>
               </div>
             </div>

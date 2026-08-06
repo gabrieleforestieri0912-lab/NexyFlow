@@ -1,12 +1,25 @@
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import Popup from '@/app/popup/page'
+import { AuthProvider } from '@/context/AuthContext'
+import { LanguageProvider } from '@/context/LanguageContext'
+import { ToastProvider } from '@/context/ToastContext'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Popup from '@/app/popup/page';
+const container = document.getElementById('root')
+if (!container) {
+  throw new Error('Root element not found')
+}
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = createRoot(container)
 
 root.render(
   <React.StrictMode>
-    <Popup />
+    <LanguageProvider>
+      <AuthProvider>
+        <ToastProvider>
+          <Popup />
+        </ToastProvider>
+      </AuthProvider>
+    </LanguageProvider>
   </React.StrictMode>
-);
+)

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Users, Eye, Heart, MessageCircle, Music, TrendingUp, Clock, ArrowUp, ArrowDown, Loader2, Activity, Target, BarChart3, Share2, Play } from 'lucide-react'
+import { Users, Eye, Heart, MessageCircle, Music, TrendingUp, Clock, ArrowUp, ArrowDown, Loader2, Activity, Target, BarChart3, Share2, Play, Tag } from 'lucide-react'
 import { TiktokIcon } from '@/lib/icons'
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import ProtectedRoute from '@/components/ProtectedRoute'
@@ -274,19 +274,19 @@ export default function TikTokAnalyticsPage() {
             </div>
             <div className="space-y-3">
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-sm text-white">🎵 Engagement: {data.engagement}%</p>
+                <p className="text-sm text-white flex items-center gap-2"><Music className="w-4 h-4 text-pink-400 flex-shrink-0" /> Engagement: {data.engagement}%</p>
                 <p className="text-xs text-gray-500 mt-1">{data.engagement > 5 ? 'Ottimo! I tuoi contenuti risuonano bene col pubblico.' : 'Prova a utilizzare suoni di tendenza per aumentare la portata organica.'}</p>
               </div>
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-sm text-white">⏰ Pubblica verso {data.bestPostingTime}</p>
+                <p className="text-sm text-white flex items-center gap-2"><Clock className="w-4 h-4 text-cyan-400 flex-shrink-0" /> Pubblica verso {data.bestPostingTime}</p>
                 <p className="text-xs text-gray-500 mt-1">Questo è il momento in cui il tuo pubblico è più attivo su TikTok.</p>
               </div>
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-sm text-white">📊 Completamento: {data.completionRate}%</p>
+                <p className="text-sm text-white flex items-center gap-2"><BarChart3 className="w-4 h-4 text-blue-400 flex-shrink-0" /> Completamento: {data.completionRate}%</p>
                 <p className="text-xs text-gray-500 mt-1">{data.completionRate > 30 ? 'I tuoi video mantengono l\'attenzione! Cerca di mantenere i primi 3 secondi coinvolgenti.' : 'Prova video più brevi e un hook più forte nei primi 2 secondi.'}</p>
               </div>
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-sm text-white">🏷️ Usa #fyp e hashtag di nicchia</p>
+                <p className="text-sm text-white flex items-center gap-2"><Tag className="w-4 h-4 text-orange-400 flex-shrink-0" /> Usa #fyp e hashtag di nicchia</p>
                 <p className="text-xs text-gray-500 mt-1">Mescola hashtag popolari con hashtag specifici del tuo settore per massimizzare la scopribilità.</p>
               </div>
             </div>

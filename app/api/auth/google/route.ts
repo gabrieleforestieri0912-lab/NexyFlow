@@ -86,6 +86,7 @@ export async function POST(request: Request) {
     const response = NextResponse.json(
       {
         message: 'Google Login successful',
+        token: jwtToken,
         user: { id: user.id, name: user.name, email: user.email, avatar: user.avatar, plan: user.plan },
       },
       { status: 200 }

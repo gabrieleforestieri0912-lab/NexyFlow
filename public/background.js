@@ -1,5 +1,5 @@
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('NextBrand extension installed.');
+  // Extension installed / updated
 });
 
 chrome.action.onClicked.addListener((tab) => {
@@ -23,9 +23,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       chrome.sidePanel.open({ tabId: sender.tab.id });
     });
   } else if (message.action === 'OPEN_DASHBOARD') {
-    // Apre la dashboard locale o di produzione. In sviluppo locale usa http://localhost:3000
-    const apiHost = 'http://localhost:3000';
-    const targetUrl = `${apiHost}${message.path || '/dashboard'}`;
+    // In production change API_HOST to the deployed domain (e.g. https://nextbrand.ai)
+    const API_HOST = 'http://localhost:3000';
+    const targetUrl = `${API_HOST}${message.path || '/dashboard'}`;
     chrome.tabs.create({ url: targetUrl });
   }
 });

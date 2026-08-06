@@ -160,7 +160,7 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between animate-[fadeInUp_0.4s_cubic-bezier(0.16,1,0.3,1)_both]">
           <div>
             <h1 className="text-2xl font-normal text-white tracking-tight">
-              Ciao, {user?.name?.split(' ')[0]} 👋
+              Ciao, {user?.name?.split(' ')[0]}
             </h1>
             <p className="text-gray-500 mt-0.5 text-sm">Ecco le tue performance oggi.</p>
           </div>
@@ -352,7 +352,7 @@ export default function DashboardPage() {
             <div className="absolute inset-0 opacity-[0.02] will-change-transform" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'1\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }} />
             <div className="relative flex items-center justify-between">
               <div>
-                <h3 className="text-base font-normal text-white mb-0.5">Passa al Piano Pro ✨</h3>
+                <h3 className="text-base font-normal text-white mb-0.5 flex items-center gap-2">Passa al Piano Pro <Sparkles className="w-4 h-4 text-[#f09433]" /></h3>
                 <p className="text-gray-400 text-sm">Sblocca query AI illimitate e analisi avanzate.</p>
               </div>
               <button

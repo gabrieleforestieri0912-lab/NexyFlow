@@ -19,10 +19,13 @@ interface AnalysisData {
   engagementRate: string;
   sentiment: string;
   trending: boolean;
-  lastPostImpact: string;
+  analysis: string;
+  tips: string[];
 }
 
 type ActiveTab = 'analysis' | 'strategy';
+
+const API_HOST = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 const Popup = () => {
   const { user, googleLogin, logout } = useAuth();
@@ -32,26 +35,107 @@ const Popup = () => {
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
   const [currentUrl, setCurrentUrl] = useState<string>('');
+  const [platform, setPlatform] = useState<'instagram' | 'tiktok' | 'youtube' | null>(null);
 
   useEffect(() => {
-    setCurrentUrl('instagram.com/cristiano');
+    const chromeTabs = typeof window !== 'undefined' ? (window as any).chrome?.tabs : null;
+    if (chromeTabs?.query) {
+      chromeTabs.query({ active: true, currentWindow: true }, (tabs: any[]) => {
+        const url = tabs?.[0]?.url || '';
+        setCurrentUrl(url);
+        if (url.includes('instagram.com')) setPlatform('instagram');
+        else if (url.includes('tiktok.com')) setPlatform('tiktok');
+        else if (url.includes('youtube.com') || url.includes('youtu.be')) setPlatform('youtube');
+      });
+    } else {
+      setCurrentUrl(window.location.href);
+    }
   }, []);
 
-  const handleAnalyze = () => {
+  const extractProfileInfo = (url: string) => {
+    try {
+      const u = new URL(url);
+      const parts = u.pathname.split('/').filter(Boolean);
+      if (u.hostname.includes('instagram.com') && parts[0]) {
+        return { platform: 'instagram', username: parts[0].replace('@', '') };
+      }
+      if (u.hostname.includes('tiktok.com')) {
+        const user = parts.find(p => p.startsWith('@')) || parts[0];
+        return { platform: 'tiktok', username: user.replace('@', '') };
+      }
+      if (u.hostname.includes('youtube.com') || u.hostname.includes('youtu.be')) {
+        const handle = parts.find(p => p.startsWith('@'));
+        if (handle) return { platform: 'youtube', username: handle.replace('@', '') };
+        // support /c/channel, /user/channel, /channel/ID
+        const specialIdx = parts.findIndex(p => ['c', 'user', 'channel'].includes(p));
+        if (specialIdx >= 0 && parts[specialIdx + 1]) {
+          return { platform: 'youtube', username: parts[specialIdx + 1] };
+        }
+        if (parts[0]) return { platform: 'youtube', username: parts[0] };
+      }
+    } catch {
+      // ignore malformed URLs
+    }
+    return null;
+  };
+
+  const formatNumber = (n: number) => {
+    if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'K';
+    return n.toString();
+  };
+
+  const getStoredToken = async (): Promise<string | undefined> => {
+    if (typeof chrome !== 'undefined' && chrome.storage?.local) {
+      const stored = await chrome.storage.local.get('token')
+      return stored.token
+    }
+    return undefined
+  }
+
+  const handleAnalyze = async () => {
     setIsAnalyzing(true);
     setAnalysisData(null);
-    
-    setTimeout(() => {
-      setAnalysisData({
-        username: '@cristiano',
-        followers: '624M',
-        engagementRate: '1.2%',
-        sentiment: t('popup.sentimentPositive'),
-        trending: true,
-        lastPostImpact: t('popup.impactHigh')
-      });
+
+    const info = extractProfileInfo(currentUrl);
+    if (!info) {
+      showToast('Impossibile rilevare un profilo social dalla pagina corrente', 'error');
       setIsAnalyzing(false);
-    }, 2000);
+      return;
+    }
+
+    const token = await getStoredToken();
+    if (!token) {
+      showToast('Devi effettuare il login per analizzare un profilo', 'error');
+      setIsAnalyzing(false);
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_HOST}/api/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ platform: info.platform, username: info.username }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Errore durante l\'analisi');
+
+      const profile = data.profile || {};
+      const analysis = data.analysis || {};
+      setAnalysisData({
+        username: data.username || info.username,
+        followers: formatNumber(Number(profile.followers || 0)),
+        engagementRate: `${Number(profile.engagement || 0).toFixed(2)}%`,
+        sentiment: analysis.tips?.[0] || t('popup.sentimentPositive'),
+        trending: (profile.followers || 0) > 100000,
+        analysis: analysis.analysis || '',
+        tips: analysis.tips || [],
+      });
+    } catch (err: any) {
+      showToast(err.message || 'Errore durante l\'analisi', 'error');
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   return (
@@ -181,7 +265,7 @@ const Popup = () => {
                     </div>
                   </div>
                   <p className="text-sm text-amber-800 leading-relaxed">
-                    {t('popup.insightText')}
+                    {analysisData?.analysis || t('popup.insightText')}
                   </p>
                 </div>
               </div>
