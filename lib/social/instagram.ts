@@ -88,7 +88,7 @@ export async function getInstagramProfile(accessToken: string): Promise<Instagra
   }
 }
 
-export async function getInstagramStats(username: string, accessToken?: string): Promise<InstagramStats | null> {
+export async function getInstagramStats(accessToken?: string): Promise<InstagramStats | null> {
   if (accessToken) {
     const profile = await getInstagramProfile(accessToken)
     if (profile) {

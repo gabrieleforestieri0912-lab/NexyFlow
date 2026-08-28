@@ -48,7 +48,7 @@
     "heroTitleStart": "Analizza il tuo",
     "heroTitleEnd": "per far decollare il tuo",
     "heroTitleLine3": "Personal Brand",
-    "heroSubtitle": "NextBrand usa l'IA per darti insight istantanei su Instagram, TikTok e YouTube. Cresci più velocemente con dati alla mano.",
+    "heroSubtitle": "Nexyflow usa l'IA per darti insight istantanei su Instagram, TikTok e YouTube. Cresci più velocemente con dati alla mano.",
     "heroCta": "Inizia Gratis",
     "goToDashboard": "Vai alla Dashboard",
     "tryChat": "Prova la Chat IA",
@@ -78,7 +78,7 @@
     "youtubeFeature3": "Crescita Iscritti",
     "goToChat": "Vai alla Chat",
     "tryChatFree": "Prova Gratis la Chat IA",
-    "demoResponse": "Ciao! Sono NextBrand AI. Posso aiutarti ad analizzare i tuoi profili social, suggerirti strategie per i contenuti e trovare i migliori orari per pubblicare. Provami!",
+    "demoResponse": "Ciao! Sono Nexyflow AI. Posso aiutarti ad analizzare i tuoi profili social, suggerirti strategie per i contenuti e trovare i migliori orari per pubblicare. Provami!",
     "featuresTitle": "Tutto ciò che ti serve per",
     "featuresTitleHighlight": "crescere",
     "featuresSubtitle": "Strumenti potenti e facili da usare per analizzare, ottimizzare e scalare la tua presenza social.",
@@ -90,22 +90,10 @@
     "featureRealtimeDesc": "Monitora metriche chiave in tempo reale con aggiornamenti istantanei e notifiche intelligenti.",
     "featureCompetitorTitle": "Analisi Competitiva",
     "featureCompetitorDesc": "Confronta le performance con i competitor e scopri aree di miglioramento strategiche.",
-    "extBadge": "ESTENSIONE CHROME",
-    "extTitle": "Usa NextBrand",
-    "extTitleHighlight": "dove vuoi",
-    "extDesc": "La nostra estensione Chrome ti permette di analizzare qualsiasi profilo social direttamente dal browser, senza cambiare scheda.",
-    "extFeature1Title": "Analisi Rapida",
-    "extFeature1Desc": "Visualizza metriche e insight di qualsiasi profilo Instagram con un click direttamente dal browser.",
-    "extFeature2Title": "Dati Aggiornati",
-    "extFeature2Desc": "Accedi ai dati più recenti dei profili social senza lasciare la pagina che stai visitando.",
-    "extDownloading": "Download in corso...",
-    "extAddToChrome": "Aggiungi a Chrome",
-    "extDemoTitle": "Analisi direttamente nel tuo browser",
-    "extDemoDesc": "Apri l'estensione su qualsiasi profilo social e ottieni insight immediati con un click.",
     "faqBadge": "FAQ",
     "faqTitleBefore": "Domande",
     "faqTitleHighlight": "Frequenti",
-    "faqSubtitle": "Tutto ciò che devi sapere su NextBrand.",
+    "faqSubtitle": "Tutto ciò che devi sapere su Nexyflow.",
     "faqContactText": "Non hai trovato quello che cercavi?",
     "faqContactButton": "Contattaci",
     "footerDesc": "La piattaforma all-in-one per creator e brand che vogliono scalare la presenza social con l'intelligenza artificiale.",
@@ -123,14 +111,8 @@
     "legalPrivacy": "Privacy Policy",
     "legalTerms": "Termini di Servizio",
     "legalContact": "Contattaci",
-    "copyright": "© {year} NextBrand. Tutti i diritti riservati.",
+    "copyright": "© {year} Nexyflow. Tutti i diritti riservati.",
     "poweredBy": "Powered by",
-    "extModalTitle": "Installa l'Estensione",
-    "extModalDesc": "Segui questi semplici passi per installare l'estensione NextBrand sul tuo browser Chrome.",
-    "extModalStep1": "Apri la pagina delle estensioni:",
-    "extModalStep2": "Trascina il file .zip scaricato nella finestra delle estensioni.",
-    "extModalStep3": "Cerca il file scaricato:",
-    "extModalDone": "Fatto!",
     "socialMedia": "Social Media",
     "chatbotTitle": "Chat IA",
     "chatbotInput": "Scrivi un messaggio...",
@@ -325,13 +307,14 @@
     "profileTitle": "Profilo Pubblico",
     "nameLabel": "Nome",
     "emailLabel": "Email",
+    "planLabel": "Piano Attivo",
     "notificationsTitle": "Notifiche",
     "weeklyReport": "Report Settimanali",
     "weeklyReportDesc": "Ricevi un riassunto delle performance ogni lunedì.",
     "aiAlerts": "Avvisi IA",
     "aiAlertsDesc": "Notifiche quando l'IA rileva un calo o picco anomalo.",
     "productUpdates": "Aggiornamenti Prodotto",
-    "productUpdatesDesc": "Novità e nuove funzionalità di NextBrand.",
+    "productUpdatesDesc": "Novità e nuove funzionalità di Nexyflow.",
     "securityTitle": "Sicurezza Account",
     "securityDesc": "La tua password è stata aggiornata l'ultima volta {days} giorni fa.",
     "changePassword": "Cambia Password",
@@ -350,7 +333,18 @@
     "fillAllFields": "Compila tutti i campi",
     "passwordTooShort": "La nuova password deve essere di almeno 6 caratteri",
     "passwordsDoNotMatch": "Le nuove password non coincidono",
-    "passwordChangeError": "Errore nel cambio password"
+    "passwordChangeError": "Errore nel cambio password",
+    "logoutTitle": "Esci dall'account",
+    "logoutDesc": "Termina la sessione su questo dispositivo. Potrai accedere di nuovo in qualsiasi momento.",
+    "logoutButton": "Esci",
+    "logoutModalTitle": "Vuoi davvero uscire?",
+    "logoutModalDesc": "Dovrai effettuare nuovamente l'accesso per usare la dashboard.",
+    "logoutStep2Title": "Conferma finale",
+    "logoutStep2Desc": "Ultima conferma: vuoi davvero terminare la sessione?",
+    "logoutContinue": "Continua",
+    "logoutBack": "Indietro",
+    "logoutCancel": "Annulla",
+    "logoutConfirm": "Esci definitivamente"
   },
 "chat": {
     "title": "AI Chat",
@@ -387,7 +381,40 @@
     "feedbackLike": "Mi piace",
     "feedbackDislike": "Non mi piace",
     "feedbackCopy": "Copia",
-    "feedbackRetry": "Riprova"
+    "feedbackRetry": "Riprova",
+    "tour": {
+      "title": "Benvenuto nella Chat IA",
+      "intro": "Ti mostriamo in pochi passi come usare la chat di Nexyflow.",
+      "next": "Avanti",
+      "prev": "Indietro",
+      "skip": "Salta",
+      "done": "Inizia a chattare",
+      "step": "Passo {current} di {total}",
+      "replay": "Rivedi il tour",
+      "close": "Chiudi",
+      "steps": [
+        {
+          "title": "Scrivi il tuo messaggio",
+          "body": "Digita qui la tua domanda sui social media. Puoi chiedere consigli, analisi o strategie di crescita per Instagram, TikTok e YouTube."
+        },
+        {
+          "title": "Usa i suggerimenti rapidi",
+          "body": "Non sai da dove iniziare? Tocca uno di questi suggerimenti per inviare subito una domanda pronta."
+        },
+        {
+          "title": "Invia il messaggio",
+          "body": "Premi il pulsante Invia (o Invio) per mandare la domanda. Mentre l'IA risponde, puoi fermarla quando vuoi."
+        },
+        {
+          "title": "La cronologia delle chat",
+          "body": "Le tue conversazioni vengono salvate qui. Puoi crearne di nuove, riprenderle in qualsiasi momento o eliminarle."
+        },
+        {
+          "title": "Il tuo account",
+          "body": "Qui trovi il tuo profilo, il piano attivo e le impostazioni. La chat legge i tuoi dati solo per darti risposte personalizzate, senza mai eseguire azioni."
+        }
+      ]
+    }
   },
   "contact": {
     "title": "Contattaci",
@@ -417,12 +444,12 @@
       "features": "Funzionalità"
     },
     "questions": {
-      "whatIsNextbrand": "Cos'è NextBrand?",
-      "whatIsNextbrandA": "NextBrand è una piattaforma all-in-one che usa l'intelligenza artificiale per analizzare e ottimizzare la tua presenza su Instagram, TikTok e YouTube. Ottieni approfondimenti personalizzati, strategie di crescita e suggerimenti di contenuto.",
+      "whatIsNexyflow": "Cos'è Nexyflow?",
+      "whatIsNexyflowA": "Nexyflow è una piattaforma all-in-one che usa l'intelligenza artificiale per analizzare e ottimizzare la tua presenza su Instagram, TikTok e YouTube. Ottieni approfondimenti personalizzati, strategie di crescita e suggerimenti di contenuto.",
       "howDoesAiWork": "Come funziona l'analisi con IA?",
       "howDoesAiWorkA": "Collega i tuoi profili social e la nostra IA analizza metriche come engagement, crescita follower, performance contenuti e trend. Riceverai raccomandazioni personalizzate.",
       "needTechnicalSkills": "Devo avere competenze tecniche?",
-      "needTechnicalSkillsA": "No! NextBrand è progettato per essere intuitivo. Basta collegare i profili e lasciare che l'IA faccia il lavoro.",
+      "needTechnicalSkillsA": "No! Nexyflow è progettato per essere intuitivo. Basta collegare i profili e lasciare che l'IA faccia il lavoro.",
       "supportedPlatforms": "Quali piattaforme sono supportate?",
       "supportedPlatformsA": "Supportiamo Instagram, TikTok e YouTube. Stiamo lavorando per aggiungere LinkedIn, Facebook e Twitter.",
       "freePlanLimitations": "Il piano gratuito ha limitazioni?",
@@ -440,13 +467,13 @@
   },
   "terms": {
     "title": "Termini di Servizio",
-    "subtitle": "Termini e condizioni d'uso della piattaforma NextBrand.",
+    "subtitle": "Termini e condizioni d'uso della piattaforma Nexyflow.",
     "lastUpdated": "Ultimo aggiornamento: {date}",
-    "intro": "Benvenuto su NextBrand. Utilizzando la nostra piattaforma, accetti i seguenti termini e condizioni.",
+    "intro": "Benvenuto su Nexyflow. Utilizzando la nostra piattaforma, accetti i seguenti termini e condizioni.",
     "section1Title": "1. Accettazione dei Termini",
-    "section1Text": "Registrandoti e utilizzando NextBrand, accetti di rispettare questi Termini di Servizio. Se non accetti, non utilizzare la piattaforma.",
+    "section1Text": "Registrandoti e utilizzando Nexyflow, accetti di rispettare questi Termini di Servizio. Se non accetti, non utilizzare la piattaforma.",
     "section2Title": "2. Descrizione del Servizio",
-    "section2Text": "NextBrand fornisce strumenti di analisi dei social media basati sull'IA, inclusi monitoraggio delle metriche, generazione di insight e raccomandazioni strategiche.",
+    "section2Text": "Nexyflow fornisce strumenti di analisi dei social media basati sull'IA, inclusi monitoraggio delle metriche, generazione di insight e raccomandazioni strategiche.",
     "section3Title": "3. Account Utente",
     "section3Text": "Sei responsabile della riservatezza delle tue credenziali e di tutte le attività sotto il tuo account. Devi fornire informazioni accurate.",
     "section4Title": "4. Condotta dell'Utente",
@@ -454,7 +481,7 @@
     "section5Title": "5. Piani e Pagamenti",
     "section5Text": "I piani a pagamento vengono fatturati secondo il ciclo scelto. Le cancellazioni sono soggette ai termini del piano. Le prove gratuite sono limitate a una per utente.",
     "section6Title": "6. Limitazione di Responsabilità",
-    "section6Text": "NextBrand non è responsabile per danni indiretti derivanti dall'uso della piattaforma. Il servizio è fornito 'così com'è'."
+    "section6Text": "Nexyflow non è responsabile per danni indiretti derivanti dall'uso della piattaforma. Il servizio è fornito 'così com'è'."
   },
   "privacy": {
     "title": "Privacy Policy",

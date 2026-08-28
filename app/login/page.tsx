@@ -16,7 +16,7 @@ export default function LoginPage() {
   const [success, setSuccess] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const { login, googleLogin } = useAuth()
+  const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -57,11 +57,11 @@ export default function LoginPage() {
         transition={{ duration: 0.3 }}
       >
         <div className="flex justify-center mb-6">
-          <img src="/nextbrand.png" alt="NextBrand" className="w-14 h-14 object-contain" />
+          <img src="/nexyflow.png" alt="Nexyflow" className="w-14 h-14 object-contain" />
         </div>
         <div className="text-center mb-8">
           <h1 className="text-3xl font-normal text-gray-900 mb-2">Bentornato</h1>
-          <p className="text-gray-500">Accedi al tuo account NextBrand</p>
+          <p className="text-gray-500">Accedi al tuo account Nexyflow</p>
         </div>
 
         <AnimatePresence>

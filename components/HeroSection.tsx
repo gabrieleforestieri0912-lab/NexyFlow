@@ -55,21 +55,26 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pt-20" style={{ background: 'radial-gradient(ellipse 70% 60% at 10% 0%, rgba(240,148,51,0.10) 0%, transparent 55%), radial-gradient(ellipse 60% 50% at 90% 10%, rgba(220,39,67,0.08) 0%, transparent 55%)' }}>
-      {/* Background blobs */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-[15%] w-96 h-96 bg-red-500/8 rounded-full blur-[80px]" />
-        <div className="absolute bottom-1/4 right-[10%] w-80 h-80 bg-orange-500/8 rounded-full blur-[70px]" />
-        <div className="absolute top-[10%] right-[30%] w-64 h-64 bg-violet-500/6 rounded-full blur-[60px]" />
-      </div>
+    <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pt-28" id="home">
+      <video
+        id="bg-video"
+        className="hero-video"
+        aria-hidden="true"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260816_125506_3a597378-ec85-4ebd-bd22-03b45508ac62.mp4"
+      />
 
       <div className="relative z-10 max-w-5xl mx-auto text-center">
         {/* AI badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[13px] font-normal tracking-wide shadow-[0_0_20px_rgba(220,39,67,0.1)] mb-7 group animate-[revealUp_0.6s_cubic-bezier(0.16,1,0.3,1)_both]">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-chip text-orange-600 text-[13px] font-normal tracking-wide mt-4 mb-7 animate-[revealUp_0.6s_cubic-bezier(0.16,1,0.3,1)_both]">
           <Sparkles size={14} className="animate-[pulse-soft_2s_cubic-bezier(0.4,0,0.6,1)_infinite]" />
           <span>{t("common.aiPowered")}</span>
-          <span className="w-px h-3 bg-red-400/30" />
-          <span className="text-red-300/60 text-[11px]">{t("common.new")}</span>
+          <span className="w-px h-3 bg-orange-400/30" />
+          <span className="text-cyan-700/70 text-[11px]">{t("common.new")}</span>
         </div>
 
         {/* H1 */}
@@ -90,7 +95,7 @@ export default function HeroSection() {
         </h1>
 
         {/* Subtitle */}
-        <p className="animate-[revealUp_0.6s_cubic-bezier(0.16,1,0.3,1)_both] text-gray-500 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed px-4">
+        <p className="animate-[revealUp_0.6s_cubic-bezier(0.16,1,0.3,1)_both] text-gray-600 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed px-4">
           {t("landing.heroSubtitle")}
         </p>
 
@@ -108,7 +113,7 @@ export default function HeroSection() {
           </Link>
           <Link
             href="/#features"
-            className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-white border border-gray-200 rounded-2xl text-gray-700 font-normal hover:bg-gray-50 hover:border-gray-300 hover:-translate-y-0.5 transition-all duration-200 shadow-sm w-fit"
+            className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 glass-panel rounded-2xl text-gray-700 font-normal hover:bg-white/70 hover:-translate-y-0.5 transition-all duration-200 w-fit"
           >
             {t("common.learnMore")}
           </Link>

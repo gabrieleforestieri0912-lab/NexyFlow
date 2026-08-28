@@ -5,8 +5,7 @@ import { checkDailyQueryLimit } from "@/lib/plan";
 import { getYouTubeStats } from "@/lib/social/youtube";
 import { getInstagramStats } from "@/lib/social/instagram";
 import { getTikTokStats } from "@/lib/social/tiktok";
-
-const OLLAMA_URL = "http://localhost:11434/api/chat";
+import { aiChatJson } from "@/lib/ai";
 
 function buildUnavailableStats(platform: string, username: string) {
   const displayName = username || "Account social";
@@ -162,7 +161,7 @@ export async function POST(request: NextRequest) {
     if (platform === "youtube") {
       stats = await getYouTubeStats(username);
     } else if (platform === "instagram") {
-      stats = await getInstagramStats(username);
+      stats = await getInstagramStats();
     } else if (platform === "tiktok") {
       stats = await getTikTokStats(username);
     }
@@ -180,29 +179,15 @@ export async function POST(request: NextRequest) {
 
     let analysis = null;
     try {
-      const ollamaRes = await fetch(OLLAMA_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "llama3",
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: JSON.stringify(stats) },
-          ],
-          stream: false,
-        }),
-      });
-
-      if (ollamaRes.ok) {
-        const data: any = await ollamaRes.json();
-        const content = data.message?.content || "";
-        const jsonMatch = content.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-          analysis = JSON.parse(jsonMatch[0]);
-        }
+      const result = await aiChatJson(systemPrompt, [
+        { role: "user", content: JSON.stringify(stats) },
+      ]);
+      const jsonMatch = result.content.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        analysis = JSON.parse(jsonMatch[0]);
       }
     } catch {
-      // Ollama non disponibile, usa fallback
+      // AI non disponibile, usa fallback
     }
 
     if (!analysis) {

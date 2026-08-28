@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import jwt from 'jsonwebtoken'
 import User from '@/models/User'
 import { exchangeCodeForToken, getLongLivedToken, getInstagramProfile } from '@/lib/social/instagram'
 

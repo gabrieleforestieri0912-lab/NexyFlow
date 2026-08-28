@@ -20,7 +20,8 @@ export interface InstagramDetailed {
   impressions: number
   profileVisits: number
   contentMix: { photos: number; videos: number; carousels: number }
-  topPosts: { id: string; type: string; likes: number; comments: number; date: string }[]
+  reels: { count: number; avgViews: number; avgLikes: number; avgComments: number; engagementRate: number }
+  topPosts: { id: string; type: string; views: number; likes: number; comments: number; date: string }[]
   bestPostingTime: string
   growthRate: number
   followerHistory: { name: string; value: number }[]

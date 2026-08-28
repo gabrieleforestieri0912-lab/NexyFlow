@@ -52,6 +52,7 @@ export default function CommandPalette() {
     if (open) {
       setTimeout(() => inputRef.current?.focus(), 50)
     } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- azzera la ricerca alla chiusura
       setQuery('')
     }
   }, [open])
@@ -65,8 +66,8 @@ export default function CommandPalette() {
         className="relative w-full max-w-lg bg-gray-900 border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10">
-          <Search size={18} className="text-gray-400" />
+        <div className="group flex items-center gap-3 px-4 py-3 border-b border-white/10 bg-white/[0.02] transition-colors focus-within:bg-white/[0.05] focus-within:border-[#E4405F]/30">
+          <Search size={18} className="text-gray-400 transition-colors group-focus-within:text-[#E4405F]" />
           <input
             ref={inputRef}
             type="text"
@@ -81,7 +82,7 @@ export default function CommandPalette() {
               }
             }}
             placeholder="Cosa vuoi fare?"
-            className="flex-1 bg-transparent text-white placeholder-gray-500 focus:outline-none text-lg"
+            className="flex-1 bg-transparent text-white placeholder-gray-500 focus:outline-none text-lg caret-[#E4405F] selection:bg-[#E4405F]/30"
           />
           <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-1 bg-white/5 rounded text-xs text-gray-400">
             <Command size={12} />K

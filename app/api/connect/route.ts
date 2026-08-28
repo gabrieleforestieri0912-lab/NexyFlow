@@ -48,7 +48,7 @@ async function fetchRealStats(platform: Platform, username: string) {
       case "youtube":
         return await getYouTubeStats(username);
       case "instagram":
-        return await getInstagramStats(username);
+        return await getInstagramStats();
       case "tiktok":
         return await getTikTokStats(username);
       default:

@@ -121,7 +121,7 @@ export default function ConnectPage() {
       <div className="space-y-8">
         <div>
           <h1 className="text-3xl font-normal text-white tracking-tight">Connetti Piattaforme</h1>
-          <p className="text-gray-400 mt-1">Collega i tuoi profili social per abilitare le analisi e sbloccare la generazione di strategie basate sull'AI</p>
+          <p className="text-gray-400 mt-1">Collega i tuoi profili social per abilitare le analisi e sbloccare la generazione di strategie basate sull&apos;AI</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -219,7 +219,7 @@ export default function ConnectPage() {
                 
                 <div className="relative z-10 space-y-4">
                   <p className="text-sm text-gray-400 leading-relaxed">
-                    Inserisci il tuo username o l'identificativo del canale per consentire all'AI di sincronizzare e analizzare le tue metriche storiche.
+                    Inserisci il tuo username o l&apos;identificativo del canale per consentire all&apos;AI di sincronizzare e analizzare le tue metriche storiche.
                   </p>
                   
                   <input

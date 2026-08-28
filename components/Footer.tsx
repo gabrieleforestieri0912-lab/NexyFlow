@@ -7,10 +7,10 @@ import { motion } from 'framer-motion'
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-900 to-black border-t border-white/5">
+    <footer className="glass-section relative overflow-hidden glass-panel--dark border-t border-white/10">
       {/* Ambient glow effects */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#dc2743]/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#69C9D0]/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#dc2743]/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#69C9D0]/10 blur-[120px] rounded-full pointer-events-none" />
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
@@ -20,17 +20,17 @@ export default function Footer() {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-xl blur-sm opacity-50 group-hover:opacity-75 transition-opacity" />
                 <Image 
-                  src="/nextbrand.png" 
-                  alt="NextBrand" 
+                  src="/nexyflow.png" 
+                  alt="Nexyflow" 
                   width={40} 
                   height={40} 
                   className="relative rounded-xl object-contain" 
                 />
               </div>
-              <span className="text-xl font-normal text-white">NextBrand</span>
+              <span className="text-xl font-normal text-white">Nexyflow</span>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
-              L'AI per i social media creator. Analizza, ottimizza e cresci su Instagram, TikTok e YouTube.
+              L&apos;AI per i social media creator. Analizza, ottimizza e cresci su Instagram, TikTok e YouTube.
             </p>
             {/* Social Icons */}
             <div className="flex items-center gap-3 pt-2">
@@ -74,7 +74,6 @@ export default function Footer() {
               <li><Link href="/#features" className="group relative inline-block text-sm text-gray-400 hover:text-white transition-colors">Funzionalità<span className="absolute -bottom-0.5 left-0 h-[2px] rounded-full bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] transition-all duration-300 ease-out scale-x-0 group-hover:scale-x-100 origin-left" /></Link></li>
               <li><Link href="/pricing" className="group relative inline-block text-sm text-gray-400 hover:text-white transition-colors">Prezzi<span className="absolute -bottom-0.5 left-0 h-[2px] rounded-full bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] transition-all duration-300 ease-out scale-x-0 group-hover:scale-x-100 origin-left" /></Link></li>
               <li><Link href="/#ai-chat" className="group relative inline-block text-sm text-gray-400 hover:text-white transition-colors">AI Chat<span className="absolute -bottom-0.5 left-0 h-[2px] rounded-full bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] transition-all duration-300 ease-out scale-x-0 group-hover:scale-x-100 origin-left" /></Link></li>
-              <li><Link href="/#extension" className="group relative inline-block text-sm text-gray-400 hover:text-white transition-colors">Estensione Chrome<span className="absolute -bottom-0.5 left-0 h-[2px] rounded-full bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] transition-all duration-300 ease-out scale-x-0 group-hover:scale-x-100 origin-left" /></Link></li>
             </ul>
           </div>
 
@@ -101,7 +100,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-sm">
-            &copy; {new Date().getFullYear()} NextBrand. Tutti i diritti riservati.
+            &copy; {new Date().getFullYear()} Nexyflow. Tutti i diritti riservati.
           </p>
         </div>
       </div>

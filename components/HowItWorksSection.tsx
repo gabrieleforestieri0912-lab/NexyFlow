@@ -37,7 +37,7 @@ export default function HowItWorksSection() {
   ]
 
   return (
-    <section className="relative py-24 md:py-32 px-4 overflow-hidden" id="how-it-works">
+    <section className="glass-section py-24 md:py-32 px-4 overflow-hidden" id="how-it-works">
       {/* Decorative background blobs */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-[5%] w-72 h-72 bg-red-500/5 rounded-full blur-[80px]" />
@@ -50,7 +50,7 @@ export default function HowItWorksSection() {
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
           className="text-center mb-16 md:mb-24"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 mb-5">
@@ -71,7 +71,7 @@ export default function HowItWorksSection() {
         {/* Timeline */}
         <div ref={containerRef} className="relative">
           {/* Vertical track */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-gray-200 rounded-full -translate-x-1/2" />
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-white/40 rounded-full -translate-x-1/2" />
           {/* Animated progress line */}
           <motion.div
             style={{ height: lineHeight }}
@@ -101,7 +101,7 @@ export default function HowItWorksSection() {
                     }}
                     className="absolute left-8 md:left-1/2 top-2 -translate-x-1/2 z-10"
                   >
-                    <div className="w-6 h-6 rounded-full bg-white border-[4px] border-gray-200 shadow-md flex items-center justify-center">
+                    <div className="w-6 h-6 rounded-full glass-panel border-[4px] border-white/60 shadow-md flex items-center justify-center">
                       <motion.div
                         initial={{ scale: 0 }}
                         whileInView={{ scale: 1 }}
@@ -119,7 +119,7 @@ export default function HowItWorksSection() {
                     viewport={{ once: true, margin: '-100px' }}
                     transition={{
                       duration: 0.7,
-                      ease: [0.16, 1, 0.3, 1],
+                      ease: [0.16, 1, 0.3, 1] as const,
                       delay: index * 0.1,
                     }}
                     className={`w-full md:w-1/2 pl-16 md:pl-0 ${
@@ -127,7 +127,7 @@ export default function HowItWorksSection() {
                     }`}
                   >
                     <div
-                      className={`group relative bg-white border border-gray-200 rounded-3xl p-6 md:p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-red-200 ${
+                      className={`group relative glass-panel rounded-3xl p-6 md:p-8 transition-all duration-300 hover:-translate-y-1 hover:border-white/80 ${
                         isLeft ? 'md:mr-auto' : 'md:ml-auto'
                       }`}
                     >

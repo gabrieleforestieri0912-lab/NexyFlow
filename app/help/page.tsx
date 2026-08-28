@@ -11,7 +11,7 @@ const faqs = [
     icon: Rocket,
     questions: [
       { q: 'Come creare un account?', a: 'Clicca su "Inizia Gratis", inserisci nome, email e password. Puoi anche registrarti con Google in un click.' },
-      { q: 'Come funziona NextBrand?', a: 'Connetti i tuoi profili social e la nostra AI analizzerà le metriche per fornirti insights e strategie personalizzate.' },
+      { q: 'Come funziona Nexyflow?', a: 'Connetti i tuoi profili social e la nostra AI analizzerà le metriche per fornirti insights e strategie personalizzate.' },
     ],
   },
   {

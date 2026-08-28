@@ -19,7 +19,6 @@ const plans = [
       "Accesso dashboard",
       "Report settimanali",
       "Community support",
-      "Estensione Chrome",
     ],
     planId: "free",
   },
@@ -115,12 +114,12 @@ export default function PricingSection() {
   }
 
   return (
-    <section className="relative py-24 px-4 overflow-hidden" id="pricing">
+    <section className="glass-section py-24 px-4 overflow-hidden" id="pricing">
       {/* Ambient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#dc2743]/5 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#dc2743]/5 to-transparent pointer-events-none" />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#dc2743]/5 blur-[150px] rounded-full pointer-events-none" />
       
-      <div className="max-w-7xl mx-auto relative">
+      <div className="max-w-[90rem] mx-auto relative">
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -155,7 +154,7 @@ export default function PricingSection() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-[90rem] mx-auto">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
@@ -165,8 +164,8 @@ export default function PricingSection() {
               transition={{ delay: index * 0.1 }}
               className={`relative group rounded-3xl p-6 lg:p-8 transition-all duration-300 ${
                 plan.planId === "pro"
-                  ? "bg-gradient-to-br from-[#dc2743]/10 via-[#f09433]/5 to-[#bc1888]/10 border-2 border-[#dc2743]/30 shadow-2xl shadow-[#dc2743]/10 scale-105"
-                  : "bg-white border border-gray-200/80 shadow-lg hover:shadow-xl hover:border-[#dc2743]/30"
+                  ? "glass-panel border-2 border-[#dc2743]/30 scale-105"
+                  : "glass-panel hover:scale-[1.02]"
               }`}
             >
               {/* Popular badge for Pro plan */}

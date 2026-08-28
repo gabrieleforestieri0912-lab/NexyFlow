@@ -1,6 +1,6 @@
 export const metadata = {
   title: 'Recupera Password',
-  description: 'Reimposta la password del tuo account NextBrand tramite verifica email.',
+  description: 'Reimposta la password del tuo account Nexyflow tramite verifica email.',
   robots: { index: false, follow: false },
 }
 

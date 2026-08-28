@@ -1,6 +1,6 @@
 export const metadata = {
   title: 'AI Chat',
-  description: 'Chat with NextBrand AI to get instant personalized insights and growth strategies for your social media.',
+  description: 'Chat with Nexyflow AI to get instant personalized insights and growth strategies for your social media.',
   robots: { index: false, follow: false },
 }
 

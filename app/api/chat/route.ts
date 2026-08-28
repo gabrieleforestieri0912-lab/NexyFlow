@@ -2,12 +2,17 @@ import { NextRequest, NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
 import User from '@/models/User'
 import { checkDailyQueryLimit } from '@/lib/plan'
-
-const OLLAMA_URL = 'http://localhost:11434/api/chat'
+import { aiChat } from '@/lib/ai'
+import { buildUserContext } from '@/lib/user-context'
 
 const SYSTEM_PROMPT = `You are SocialScore AI, an expert social media analytics assistant specialized in helping creators grow their presence on Instagram, TikTok, and YouTube.
 
 IMPORTANT: You MUST ALWAYS respond in Italian, regardless of the language of the user's message.
+
+READ-ONLY RULES (mandatory):
+- You can ONLY read the user's data provided in the USER CONTEXT below and give answers, analysis, and advice based on it.
+- You MUST NOT perform, initiate, or claim to perform ANY action on the user's behalf: no publishing posts, no sending messages or DMs, no purchases or plan changes, no connecting or disconnecting accounts, no modifying any data, no making API calls, no external requests.
+- If the user asks you to perform an action, clearly explain that you can only read your data and give advice, and tell them where they can do it manually in the Nexyflow app.
 
 Your expertise includes:
 - Analyzing social media profiles and content performance
@@ -16,7 +21,9 @@ Your expertise includes:
 - Creating content strategies tailored to each platform
 - Identifying trends and opportunities
 
-Always provide helpful, actionable advice specific to the user's situation. Be encouraging and supportive.`
+Always base your answers on the USER CONTEXT data. Do not invent numbers that are not present. If data is missing or a platform is not connected, say so. Always provide helpful, actionable advice specific to the user's situation. Be encouraging and supportive.`
+
+
 
 export async function POST(request: NextRequest) {
   try {
@@ -31,7 +38,7 @@ export async function POST(request: NextRequest) {
     if (!token) {
       return NextResponse.json({ 
         error: 'Authentication required',
-        response: 'Accedi al tuo account NextBrand per iniziare a chattare con l\'IA.'
+        response: 'Accedi al tuo account Nexyflow per iniziare a chattare con l\'IA.'
       }, { status: 401 })
     }
 
@@ -64,46 +71,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 })
     }
 
-    const ollamaModel = model || 'llama3'
-
     const messages = [
-      { role: 'system', content: SYSTEM_PROMPT },
       ...(history || []).slice(-10).map((msg: any) => ({ role: msg.role, content: msg.content })),
       { role: 'user', content: message }
     ]
 
-    const response = await fetch(OLLAMA_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: ollamaModel,
-        messages: messages,
-        stream: false,
-      }),
-    })
+    const result = await aiChat(`${SYSTEM_PROMPT}\n\n${await buildUserContext(user)}`, messages, { model })
 
-    if (!response.ok) {
-      const errorText = await response.text()
-      console.error('Ollama API error:', response.status, errorText)
-      return NextResponse.json({
-        error: 'Ollama is not running. Make sure you started it with "ollama serve"',
-        response: 'I apologize, but Ollama is not running. Please start it in your terminal with "ollama serve" and make sure you have downloaded the model with "ollama pull llama3".'
-      }, { status: 500 })
-    }
-
-    const data: any = await response.json()
-    const aiResponse = data.message?.content || 'I apologize, but I could not generate a response. Please try again.'
-
-    return NextResponse.json({ response: aiResponse })
+    return NextResponse.json({ response: result.content, provider: result.provider, model: result.model })
   } catch (error: any) {
     console.error('Chat API error:', error)
 
     if (error.cause?.code === 'ECONNREFUSED') {
       return NextResponse.json({
-        error: 'Cannot connect to Ollama',
-        response: 'I cannot connect to Ollama. Please make sure Ollama is running in your terminal with "ollama serve".'
+        error: 'Cannot connect to the AI model',
+        response: 'I cannot connect to the AI model. If you configured an API key make sure it is valid, otherwise please make sure Ollama is running in your terminal with "ollama serve".'
       }, { status: 500 })
     }
 

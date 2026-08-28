@@ -2,7 +2,7 @@ import { Resend } from 'resend'
 
 const resendKey = process.env.RESEND_API_KEY
 const resend = resendKey ? new Resend(resendKey) : null
-const from = 'NextBrand <onboarding@resend.dev>'
+const from = 'Nexyflow <onboarding@resend.dev>'
 
 export async function sendWelcomeEmail(name: string, email: string) {
   if (!resend) return
@@ -10,16 +10,16 @@ export async function sendWelcomeEmail(name: string, email: string) {
     await resend.emails.send({
       from,
       to: email,
-      subject: 'Benvenuto su NextBrand! 🚀',
+      subject: 'Benvenuto su Nexyflow! 🚀',
       html: `
         <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #dc2743, #f97316); padding: 40px 24px; text-align: center; border-radius: 16px 16px 0 0;">
-            <h1 style="color: white; margin: 0; font-size: 28px;">Benvenuto su NextBrand!</h1>
+            <h1 style="color: white; margin: 0; font-size: 28px;">Benvenuto su Nexyflow!</h1>
           </div>
           <div style="background: #ffffff; padding: 32px 24px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 16px 16px;">
             <p style="color: #374151; font-size: 16px; line-height: 1.6;">Ciao <strong>${name}</strong>,</p>
             <p style="color: #374151; font-size: 16px; line-height: 1.6;">
-              Grazie per esserti registrato su NextBrand! Siamo entusiasti di aiutarti a far crescere la tua presenza sui social media con l'intelligenza artificiale.
+              Grazie per esserti registrato su Nexyflow! Siamo entusiasti di aiutarti a far crescere la tua presenza sui social media con l'intelligenza artificiale.
             </p>
             <div style="margin: 32px 0;">
               <a href="${process.env.NEXT_PUBLIC_APP_URL}/dashboard" 
@@ -38,7 +38,7 @@ export async function sendWelcomeEmail(name: string, email: string) {
             </div>
           </div>
           <div style="text-align: center; padding: 24px; color: #9ca3af; font-size: 12px;">
-            <p>© 2026 NextBrand. Tutti i diritti riservati.</p>
+            <p>© 2026 Nexyflow. Tutti i diritti riservati.</p>
           </div>
         </div>
       `,
@@ -54,7 +54,7 @@ export async function sendWeeklyReport(name: string, email: string, stats: { fol
     await resend.emails.send({
       from,
       to: email,
-      subject: 'Il tuo report settimanale NextBrand 📊',
+      subject: 'Il tuo report settimanale Nexyflow 📊',
       html: `
         <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #dc2743, #f97316); padding: 40px 24px; text-align: center; border-radius: 16px 16px 0 0;">

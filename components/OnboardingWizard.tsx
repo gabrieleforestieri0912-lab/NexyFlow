@@ -9,7 +9,7 @@ import { trackGAEvent } from '@/components/GAProvider'
 const steps = [
   {
     icon: Bot,
-    title: 'Benvenuto su NextBrand!',
+    title: 'Benvenuto su Nexyflow!',
     description: 'La piattaforma AI che analizza i tuoi social media e ti aiuta a crescere più velocemente.',
   },
   {

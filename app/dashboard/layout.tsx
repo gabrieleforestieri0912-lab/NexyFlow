@@ -1,12 +1,13 @@
 export const metadata = {
   title: 'Dashboard',
-  description: 'La tua dashboard NextBrand — monitora le analisi dei social media, le piattaforme collegate e le metriche di crescita in un unico posto.',
+  description: 'La tua dashboard Nexyflow — monitora le analisi dei social media, le piattaforme collegate e le metriche di crescita in un unico posto.',
   robots: { index: false, follow: false },
 }
 
 import Sidebar from '@/components/Sidebar'
 import MobileNav from '@/components/MobileNav'
 import OnboardingWizard from '@/components/OnboardingWizard'
+import DashboardHeader from '@/components/DashboardHeader'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -25,6 +26,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       <Sidebar />
       <main className="lg:pl-64 pt-0 pb-24 lg:pb-8 relative z-10">
+        <DashboardHeader />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {children}
         </div>

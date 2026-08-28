@@ -38,7 +38,7 @@ export async function POST(req: Request) {
 
     await Notification.create({
       userId: user.id,
-      text: `Il tuo piano ${(planId as string).toUpperCase()} è ora attivo! Grazie per aver scelto NextBrand.`,
+      text: `Il tuo piano ${(planId as string).toUpperCase()} è ora attivo! Grazie per aver scelto Nexyflow.`,
       type: 'success',
     })
 

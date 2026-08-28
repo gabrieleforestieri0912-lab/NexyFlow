@@ -17,13 +17,12 @@ interface Props {
   onFileAttach: (e: React.ChangeEvent<HTMLInputElement>) => void
   onRemoveFile: () => void
   placeholder: string
-  t: (key: string) => string
 }
 
 export default function ChatInput({
   value, isLoading, messageQueue, attachedFile,
   inputRef, fileInputRef, onChange, onSend, onStop,
-  onFileAttach, onRemoveFile, placeholder, t,
+  onFileAttach, onRemoveFile, placeholder,
 }: Props) {
   const handleInputResize = () => {
     const el = inputRef.current
@@ -38,7 +37,7 @@ export default function ChatInput({
   }, [value])
 
   return (
-    <div className="p-4">
+    <div className="p-4" data-tour-target="chat-input">
       <div className="max-w-3xl mx-auto">
       {messageQueue.length > 0 && (
         <div className="space-y-1 mb-2">

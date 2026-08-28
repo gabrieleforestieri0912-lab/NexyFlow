@@ -3,10 +3,10 @@ import IntegrationsPage from './IntegrationsPage'
 
 export const metadata: Metadata = {
   title: 'Integrazioni',
-  description: 'Connetti Instagram, TikTok e YouTube a NextBrand e ottieni analisi AI sui tuoi profili social.',
+  description: 'Connetti Instagram, TikTok e YouTube a Nexyflow e ottieni analisi AI sui tuoi profili social.',
   openGraph: {
-    title: 'Integrazioni | NextBrand',
-    description: 'Connetti Instagram, TikTok e YouTube a NextBrand.',
+    title: 'Integrazioni | Nexyflow',
+    description: 'Connetti Instagram, TikTok e YouTube a Nexyflow.',
   },
 }
 

@@ -1,6 +1,8 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react'
+import itTranslations from '@/lib/i18n/it.json'
+import enTranslations from '@/lib/i18n/en.json'
 
 type Language = 'it' | 'en'
 
@@ -12,46 +14,25 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-const translations: Record<Language, Record<string, string>> = {
-  it: {},
-  en: {},
+const translations: Record<Language, Record<string, any>> = {
+  it: itTranslations,
+  en: enTranslations,
 }
-
-let loadedLanguages: Set<string> = new Set()
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>('it')
-  const [ready, setReady] = useState(false)
 
   useEffect(() => {
     const stored = localStorage.getItem('language') as Language | null
     if (stored && ['it', 'en'].includes(stored)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLanguageState(stored)
     }
-    loadLanguage(stored || 'it')
   }, [])
 
-  const loadLanguage = async (lang: Language) => {
-    if (loadedLanguages.has(lang)) {
-      setReady(true)
-      return
-    }
-    try {
-      const module = await import(`@/lib/i18n/${lang}.json`)
-      translations[lang] = module.default || module
-      loadedLanguages.add(lang)
-    } catch (err) {
-      console.error(`Failed to load language ${lang}:`, err)
-    }
-    setReady(true)
-  }
-
-  const setLanguage = useCallback(async (lang: Language) => {
+  const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang)
     localStorage.setItem('language', lang)
-    if (!loadedLanguages.has(lang)) {
-      await loadLanguage(lang)
-    }
   }, [])
 
   const t = useCallback((key: string, params?: Record<string, string | number>): string => {
@@ -79,10 +60,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
     return value
   }, [language])
-
-  if (!ready) {
-    return null
-  }
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>

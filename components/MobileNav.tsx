@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, BarChart3, Lightbulb, Link2, Sparkles, FileText } from 'lucide-react'
+import { LayoutDashboard, BarChart3, Lightbulb, Sparkles, FileText } from 'lucide-react'
 
 const tabs = [
   { href: '/dashboard', label: 'Home', icon: LayoutDashboard, color: '#dc2743' },

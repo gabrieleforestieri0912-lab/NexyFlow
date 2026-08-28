@@ -32,7 +32,7 @@ export default function ChatMessage({ message, index, userAvatar, stopTypewriter
         {message.role === 'user' ? (
           userAvatar ? <img src={userAvatar} alt="" className="w-full h-full rounded-full object-cover" /> : <User className="w-3.5 h-3.5 text-gray-500" />
         ) : (
-          <img src="/nextbrand.png" alt="AI" className="w-full h-full object-contain p-0.5" />
+          <img src="/nexyflow.png" alt="AI" className="w-full h-full object-contain p-0.5" />
         )}
       </div>
       <div className={`flex-1 ${message.role === 'user' ? 'text-right' : ''}`}>

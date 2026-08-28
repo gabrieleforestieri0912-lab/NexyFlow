@@ -1,0 +1,14 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "next build --webpack",
+  "crons": [
+    {
+      "path": "/api/cron/daily-sync",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/weekly-report",
+      "schedule": "0 8 * * 1"
+    }
+  ]
+}

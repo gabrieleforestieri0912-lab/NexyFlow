@@ -178,7 +178,7 @@ export async function getYouTubeLatestVideos(channelId: string, maxResults = 10)
       `${YOUTUBE_API_BASE}/videos?part=statistics,contentDetails,snippet&id=${videoIds}&key=${apiKey}`
     )
     const statsData: any = await statsRes.json()
-    const videoMap = new Map(statsData.items?.map((v: any) => [v.id, v]))
+    const videoMap = new Map<string, any>(statsData.items?.map((v: any) => [v.id, v]))
 
     return items.map((item: any) => {
       const videoId = item.contentDetails.videoId

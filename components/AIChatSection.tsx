@@ -17,6 +17,7 @@ function TypewriterText({ content, onDone }: { content: string; onDone?: () => v
 
   useEffect(() => {
     indexRef.current = 0
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- resetta il testo quando cambia il contenuto
     setDisplayed('')
 
     const interval = setInterval(() => {
@@ -88,11 +89,10 @@ export default function AIChatSection() {
   }, [messages, showSignupPopup])
 
   return (
-    <section className="relative py-24 px-4" id="ai-chat">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-500/5 to-transparent" />
+    <section className="glass-section py-24 px-4" id="ai-chat">
       <div className="max-w-4xl mx-auto relative">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-chip text-red-500 text-sm font-medium mb-4">
             <Zap size={16} />
             AI Assistant
           </div>
@@ -104,12 +104,12 @@ export default function AIChatSection() {
           </p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+        <div className="glass-panel rounded-2xl overflow-hidden">
           {/* Chat header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-white/40">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center overflow-hidden">
-                <img src="/nextbrand.png" alt="NextBrand" className="w-5 h-5 object-contain" />
+              <div className="w-8 h-8 rounded-full glass-panel--frost flex items-center justify-center overflow-hidden">
+                <img src="/nexyflow.png" alt="Nexyflow" className="w-5 h-5 object-contain" />
               </div>
               <div>
                 <h4 className="text-sm font-medium text-gray-900">AI Assistant</h4>
@@ -133,7 +133,7 @@ export default function AIChatSection() {
                     <button
                       key={index}
                       onClick={() => handleSend(suggestion)}
-                      className="px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-gray-600 text-sm font-medium hover:text-[#dc2743] hover:border-[#dc2743] hover:shadow-sm transition-all"
+                      className="px-4 py-2.5 rounded-xl glass-chip text-gray-600 text-sm font-medium hover:text-[#dc2743] hover:border-[#dc2743] hover:shadow-sm transition-all"
                     >
                       {suggestion}
                     </button>
@@ -150,12 +150,12 @@ export default function AIChatSection() {
                   <div
                     className={`flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center overflow-hidden ${
                       msg.role === 'assistant'
-                        ? 'bg-white border border-gray-200'
-                        : 'bg-gray-100 border border-gray-200'
+                        ? 'glass-panel--frost'
+                        : 'glass-chip'
                     }`}
                   >
                     {msg.role === 'assistant' ? (
-                      <img src="/nextbrand.png" alt="AI" className="w-5 h-5 object-contain" />
+                      <img src="/nexyflow.png" alt="AI" className="w-5 h-5 object-contain" />
                     ) : (
                       <User size={16} className="text-gray-500" />
                     )}
@@ -173,8 +173,8 @@ export default function AIChatSection() {
                 ))}
                 {isLoading && (
                   <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center overflow-hidden">
-                      <img src="/nextbrand.png" alt="AI" className="w-5 h-5 object-contain" />
+                    <div className="flex-shrink-0 w-9 h-9 rounded-full glass-panel--frost flex items-center justify-center overflow-hidden">
+                      <img src="/nexyflow.png" alt="AI" className="w-5 h-5 object-contain" />
                     </div>
                     <div className="flex gap-1 py-2">
                       <span className="w-2 h-2 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
@@ -188,15 +188,15 @@ export default function AIChatSection() {
             )}
 
             {showSignupPopup && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center p-6 bg-gradient-to-b from-white/70 via-white/90 to-white">
-                <div className="text-center max-w-sm">
+              <div className="absolute inset-0 z-10 flex items-center justify-center p-6 rounded-b-2xl">
+                <div className="glass-panel rounded-2xl p-8 max-w-sm text-center">
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center mx-auto mb-5">
                     <LogIn size={28} className="text-white" />
                   </div>
                   <h3 className="text-xl font-normal text-gray-900 mb-2">Demo terminata</h3>
                   <p className="text-gray-600 text-sm leading-relaxed mb-6">
                     Hai raggiunto il limite di {DEMO_LIMIT} messaggi per la demo.
-                    Accedi o registrati per continuare a chattare con l'AI senza limiti.
+                    Accedi o registrati per continuare a chattare con l&apos;AI senza limiti.
                   </p>
                   <div className="flex flex-col gap-3">
                     <Link
@@ -207,7 +207,7 @@ export default function AIChatSection() {
                     </Link>
                     <Link
                       href="/login"
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gray-100 text-gray-700 font-normal text-sm hover:bg-gray-200 transition-colors"
+                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl glass-chip text-gray-700 font-normal text-sm transition-colors"
                     >
                       Ho già un account
                     </Link>
@@ -217,7 +217,7 @@ export default function AIChatSection() {
             )}
           </div>
 
-          <div className="border-t border-gray-200 p-4">
+          <div className="border-t border-white/40 p-4">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -226,7 +226,7 @@ export default function AIChatSection() {
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder={showSignupPopup ? 'Demo terminata' : 'Chiedi qualcosa sul social media marketing...'}
                 disabled={showSignupPopup}
-                className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-3 glass-input rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button
                 onClick={() => handleSend()}

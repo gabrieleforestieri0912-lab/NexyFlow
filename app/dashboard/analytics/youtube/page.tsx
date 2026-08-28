@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Users, Eye, Heart, MessageCircle, ThumbsUp, TrendingUp, Clock, ArrowUp, ArrowDown, Loader2, Activity, Target, BarChart3, Share2, Video, Play, Search, RefreshCw, Calendar } from 'lucide-react'
+import { Users, Eye, MessageCircle, ThumbsUp, TrendingUp, Clock, ArrowUp, Loader2, Activity, Target, BarChart3, Share2, Video, Search, RefreshCw, Calendar } from 'lucide-react'
 import { YoutubeIcon } from '@/lib/icons'
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import ProtectedRoute from '@/components/ProtectedRoute'
@@ -73,7 +73,6 @@ export default function YouTubeAnalyticsPage() {
     </ProtectedRoute>
   )
 
-  const totalEngagement = data.likes + data.comments
   const statCards = [
     { label: 'Iscritti', value: data.subscribers.toLocaleString(), icon: Users, color: '#FF0000', bg: 'rgba(255,0,0,0.1)' },
     { label: 'Visualizzazioni', value: data.views.toLocaleString(), icon: Eye, color: '#FF0000', bg: 'rgba(255,0,0,0.1)' },
@@ -279,7 +278,7 @@ export default function YouTubeAnalyticsPage() {
                 </tr>
               </thead>
               <tbody>
-                {data.topVideos.map((video, i) => {
+                {data.topVideos.map((video) => {
                   const ratio = ((video.likes / video.views) * 100).toFixed(1)
                   return (
                     <tr key={video.id} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors">

@@ -16,7 +16,7 @@ const platforms = [
     steps: [
       'Accedi al tuo account Instagram Business o Creator',
       'Vai su Impostazioni → API → Autorizzazioni',
-      'Connetti il tuo account a NextBrand',
+      'Connetti il tuo account a Nexyflow',
       'Inizia a ricevere analisi dettagliate in tempo reale',
     ],
     benefits: ['Metriche di engagement', 'Analisi follower', 'Migliori orari di pubblicazione', 'Confronto competitor'],
@@ -31,7 +31,7 @@ const platforms = [
     steps: [
       'Accedi al tuo account TikTok',
       'Vai su Impostazioni → Privacy e sicurezza',
-      'Autorizza NextBrand alle API di analisi',
+      'Autorizza Nexyflow alle API di analisi',
       'Analizza performance dei tuoi video',
     ],
     benefits: ['Analisi video virali', 'Tendenze hashtag', 'Crescita follower', 'Benchmark di settore'],
@@ -46,7 +46,7 @@ const platforms = [
     steps: [
       'Accedi al tuo canale YouTube',
       'Vai su Impostazioni → Canale → API',
-      'Collega il tuo canale con NextBrand',
+      'Collega il tuo canale con Nexyflow',
       'Ottieni insight su visualizzazioni e pubblico',
     ],
     benefits: ['Analisi visualizzazioni', 'Dati demografici', 'Performance video', 'Crescita iscritti'],
@@ -80,7 +80,7 @@ export default function IntegrationsPage() {
             </span>
           </h1>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-            Integra Instagram, TikTok e YouTube con un click. NextBrand analizza le tue performance
+            Integra Instagram, TikTok e YouTube con un click. Nexyflow analizza le tue performance
             e ti fornisce strategie AI personalizzate per ogni piattaforma.
           </p>
         </motion.div>

@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const { name, email, message } = await req.json()
 
     await resend.emails.send({
-      from: 'NextBrand <onboarding@resend.dev>',
+      from: 'Nexyflow <onboarding@resend.dev>',
       replyTo: email,
       to: process.env.CONTACT_EMAIL || 'gabriele.forestieri0912@gmail.com',
       subject: `Nuovo contatto da ${name}`,

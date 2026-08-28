@@ -2,20 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
 import User from '@/models/User'
 import { checkDailyQueryLimit } from '@/lib/plan'
-
-const OLLAMA_URL = 'http://localhost:11434/api/chat'
-
-function generateContentPlan(user: any) {
-  const stats = user.social_stats
-  const connected = user.connected_platforms
-  const connectedPlatforms = ['instagram', 'tiktok', 'youtube'].filter(p => connected[p])
-
-  if (connectedPlatforms.length === 0) {
-    return generateFallbackContent([])
-  }
-
-  return generateFallbackContent(connectedPlatforms)
-}
+import { aiChatJson } from '@/lib/ai'
 
 function generateFallbackContent(platforms: string[]) {
   const days = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica']
@@ -141,7 +128,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json().catch(() => ({}))
-    const { regenerate, platform } = body
+    const { regenerate } = body
 
     const connectedPlatforms = ['instagram', 'tiktok', 'youtube'].filter(p => user.connected_platforms[p])
 
@@ -180,26 +167,18 @@ Rispondi ESCLUSIVAMENTE in JSON valido con questa struttura:
   }
 }`
 
-        const ollamaRes = await fetch(OLLAMA_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: 'llama3',
-            messages: [{ role: 'system', content: systemPrompt }],
-            stream: false,
-          }),
-        })
-
-        if (ollamaRes.ok) {
-          const data: any = await ollamaRes.json()
-          const content = data.message?.content || ''
+        try {
+          const result = await aiChatJson(systemPrompt, [{ role: 'user', content: 'Genera il calendario editoriale.' }])
+          const content = result.content
           const jsonMatch = content.match(/\{[\s\S]*\}/)
           if (jsonMatch) {
             contentPlan = JSON.parse(jsonMatch[0])
           }
+        } catch {
+          // AI not available, use fallback
         }
       } catch {
-        // Ollama not available, use fallback
+        // AI not available, use fallback
       }
     }
 

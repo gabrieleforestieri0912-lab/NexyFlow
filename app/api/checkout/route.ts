@@ -13,15 +13,15 @@ export async function POST(req: Request) {
 
     const planDetails: Record<string, { name: string; amount: number }> = {
       pro: {
-        name: 'NextBrand Pro',
+        name: 'Nexyflow Pro',
         amount: 999,
       },
       business: {
-        name: 'NextBrand Business',
+        name: 'Nexyflow Business',
         amount: 1999,
       },
       enterprise: {
-        name: 'NextBrand Enterprise',
+        name: 'Nexyflow Enterprise',
         amount: 2999,
       }
     }
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
             currency: 'eur',
             product_data: {
               name: plan.name,
-              description: 'Abbonamento mensile a NextBrand',
+              description: 'Abbonamento mensile a Nexyflow',
             },
             unit_amount: plan.amount,
             recurring: {

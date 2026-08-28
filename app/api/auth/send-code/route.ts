@@ -33,7 +33,7 @@ export async function POST(request: Request) {
       const html = `
         <div style="max-width:480px;margin:0 auto;padding:32px 24px;font-family:Arial,sans-serif;background:#fff;border-radius:16px;border:1px solid #eee;">
           <div style="text-align:center;margin-bottom:24px;">
-            <img src="https://nextbrand.app/nextbrand.png" alt="NextBrand" style="width:48px;height:48px;border-radius:12px;" />
+            <img src="https://nexyflow.app/nexyflow.png" alt="Nexyflow" style="width:48px;height:48px;border-radius:12px;" />
           </div>
           <h1 style="font-size:24px;font-weight:800;color:#111;text-align:center;margin:0 0 8px;">Recupero Accesso</h1>
           <p style="color:#666;text-align:center;margin:0 0 24px;font-size:15px;line-height:1.5;">
@@ -47,9 +47,9 @@ export async function POST(request: Request) {
       `;
 
       await resend.emails.send({
-        from: "NextBrand <onboarding@resend.dev>",
+        from: "Nexyflow <onboarding@resend.dev>",
         to: email,
-        subject: "Il tuo codice di recupero NextBrand",
+        subject: "Il tuo codice di recupero Nexyflow",
         html,
       });
     } catch (emailErr) {

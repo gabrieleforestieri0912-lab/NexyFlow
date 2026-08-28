@@ -70,7 +70,7 @@ export default function StrategyPage() {
           <div className="space-y-2">
             <h1 className="text-2xl font-normal text-white">Nessun account connesso</h1>
             <p className="text-gray-400 text-sm leading-relaxed max-w-sm mx-auto">
-              Collega almeno una piattaforma social (Instagram, TikTok o YouTube) per generare il tuo piano di crescita e l'analisi dei competitor.
+              Collega almeno una piattaforma social (Instagram, TikTok o YouTube) per generare il tuo piano di crescita e l&apos;analisi dei competitor.
             </p>
           </div>
           <Link
@@ -89,7 +89,7 @@ export default function StrategyPage() {
       <div className="space-y-8">
         <div>
           <h1 className="text-3xl font-normal text-white tracking-tight">Strategia di Crescita</h1>
-          <p className="text-gray-400 mt-1">Piano editoriale e analisi competitiva generati in tempo reale dall'intelligenza artificiale</p>
+          <p className="text-gray-400 mt-1">Piano editoriale e analisi competitiva generati in tempo reale dall&apos;intelligenza artificiale</p>
         </div>
 
         {/* Competitor analysis */}

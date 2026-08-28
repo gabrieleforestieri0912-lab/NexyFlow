@@ -121,7 +121,7 @@ export default function AutoContentPage() {
             </div>
             <div>
               <h1 className="text-2xl font-normal text-white tracking-tight">Piano Editoriale AI</h1>
-              <p className="text-sm text-gray-500">Calendario contenuti automatico generato dall'intelligenza artificiale</p>
+              <p className="text-sm text-gray-500">Calendario contenuti automatico generato dall&apos;intelligenza artificiale</p>
             </div>
           </div>
           <div className="flex items-center gap-2">

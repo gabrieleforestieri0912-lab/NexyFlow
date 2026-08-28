@@ -50,7 +50,7 @@ const viewportOptions = { once: true, margin: '-80px' } as const
 
 export default function PlatformsSection() {
   return (
-    <section className="relative overflow-hidden bg-white py-24 px-4 sm:px-6 lg:px-8" id="platforms">
+    <section className="glass-section relative overflow-hidden py-24 px-4 sm:px-6 lg:px-8" id="platforms">
       {/* Background decoration */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-pink-100/50 to-purple-100/50 blur-3xl" />
@@ -65,7 +65,7 @@ export default function PlatformsSection() {
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="mb-16 text-center"
         >
-          <span className="mb-3 inline-block rounded-full bg-gradient-to-r from-pink-50 to-purple-50 px-4 py-1.5 text-sm font-semibold tracking-wide text-pink-600 ring-1 ring-inset ring-pink-200/50">
+          <span className="mb-3 inline-block rounded-full glass-chip px-4 py-1.5 text-sm font-semibold tracking-wide text-pink-600">
             Piattaforme supportate
           </span>
           <h2 className="mt-4 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
@@ -90,7 +90,7 @@ export default function PlatformsSection() {
             >
               <Link
                 href={platform.href}
-                className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                className="group relative flex h-full flex-col overflow-hidden rounded-3xl glass-panel transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
               >
                 {/* Hover border glow */}
                 <span className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${platform.borderGradient} opacity-0 transition-opacity duration-300 group-hover:opacity-100`} />
@@ -109,7 +109,7 @@ export default function PlatformsSection() {
                   <ul className="mt-6 space-y-3">
                     {platform.features.map((feature, fIndex) => (
                       <li key={fIndex} className="flex items-start gap-3 text-gray-600">
-                        <span className="mt-0.5 inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-pink-50 text-pink-500">
+                        <span className="mt-0.5 inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-white/60 text-pink-500">
                           <Check className="h-3.5 w-3.5" />
                         </span>
                         <span className="text-sm leading-relaxed">{feature}</span>

@@ -1,6 +1,6 @@
 export const metadata = {
   title: 'Privacy Policy',
-  description: 'Informativa sulla privacy di NextBrand - Come proteggiamo i tuoi dati.',
+  description: 'Informativa sulla privacy di Nexyflow - Come proteggiamo i tuoi dati.',
 }
 
 export default function PrivacyLayout({ children }: { children: React.ReactNode }) {

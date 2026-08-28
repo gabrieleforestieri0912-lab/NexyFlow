@@ -6,28 +6,32 @@ interface TypewriterTextProps {
   texts?: string[]
   text?: string
   speed?: number
-  delay?: number
   className?: string
   stop?: boolean
   onComplete?: () => void
 }
 
-export default function TypewriterText({ texts, text, speed = 120, delay = 2000, className = '', stop = false, onComplete }: TypewriterTextProps) {
+export default function TypewriterText({ texts, text, speed = 120, className = '', stop = false, onComplete }: TypewriterTextProps) {
   const words = (texts || (text ? [text] : []))[0]?.split(' ') || []
   const [visibleIndex, setVisibleIndex] = useState(0)
   const rafRef = useRef<number | null>(null)
   const lastTimeRef = useRef(0)
   const completedRef = useRef(false)
   const onCompleteRef = useRef(onComplete)
-  onCompleteRef.current = onComplete
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete
+  }, [onComplete])
 
   useEffect(() => {
     if (stop || words.length === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- resetta il testo quando l'animazione si ferma
       setVisibleIndex(words.length)
       completedRef.current = true
       return
     }
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- riavvia la digitazione
     setVisibleIndex(0)
     completedRef.current = false
     lastTimeRef.current = 0

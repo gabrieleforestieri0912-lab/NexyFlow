@@ -35,26 +35,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || ''
 
-async function getTokenFromStorage(): Promise<string | undefined> {
-  if (typeof chrome !== 'undefined' && chrome.storage?.local) {
-    const stored = await chrome.storage.local.get('token')
-    return stored.token
-  }
-  return undefined
-}
-
-async function saveAuthToStorage(data: { token?: string; user?: any }) {
-  if (data.token && typeof chrome !== 'undefined' && chrome.storage?.local) {
-    await chrome.storage.local.set({ token: data.token, user: data.user })
-  }
-}
-
-async function removeAuthFromStorage() {
-  if (typeof chrome !== 'undefined' && chrome.storage?.local) {
-    await chrome.storage.local.remove(['token', 'user'])
-  }
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
@@ -65,13 +45,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkAuth = async () => {
     try {
-      const token = await getTokenFromStorage()
       const res = await fetch(`${API_URL}/api/auth/me`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+        credentials: 'include',
       })
       const data = await res.json()
       if (data.user) {
-        identifyGA(data.user.id, { email: data.user.email, name: data.user.name, plan: data.user.plan })
+        identifyGA({ email: data.user.email, name: data.user.name, plan: data.user.plan })
         setUser(data.user)
       } else {
         setUser(null)
@@ -88,6 +67,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
+      credentials: 'include',
     })
 
     const data = await res.json()
@@ -97,10 +77,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     if (data.user) {
-      identifyGA(data.user.id, { email: data.user.email, name: data.user.name })
+      identifyGA({ email: data.user.email, name: data.user.name })
       trackGAEvent('login', { method: 'email' })
       setUser(data.user)
-      await saveAuthToStorage(data)
     }
     await checkAuth()
   }
@@ -110,6 +89,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password }),
+      credentials: 'include',
     })
 
     const data = await res.json()
@@ -119,10 +99,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     if (data.user) {
-      identifyGA(data.user.id, { email: data.user.email, name: data.user.name })
+      identifyGA({ email: data.user.email, name: data.user.name })
       trackGAEvent('sign_up', { method: 'email' })
       setUser(data.user)
-      await saveAuthToStorage(data)
     }
     await checkAuth()
   }
@@ -132,6 +111,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),
+      credentials: 'include',
     })
 
     const data = await res.json()
@@ -141,10 +121,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     if (data.user) {
-      identifyGA(data.user.id, { email: data.user.email, name: data.user.name })
+      identifyGA({ email: data.user.email, name: data.user.name })
       trackGAEvent('login', { method: 'google' })
       setUser(data.user)
-      await saveAuthToStorage(data)
     }
     await checkAuth()
   }
@@ -154,6 +133,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ currentPassword, newPassword }),
+      credentials: 'include',
     })
 
     const data = await res.json()
@@ -166,8 +146,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const logout = async () => {
-    await fetch(`${API_URL}/api/auth/logout`, { method: 'POST' })
-    await removeAuthFromStorage()
+    await fetch(`${API_URL}/api/auth/logout`, { method: 'POST', credentials: 'include' })
     setUser(null)
     if (typeof window !== 'undefined') {
       window.location.href = '/login'

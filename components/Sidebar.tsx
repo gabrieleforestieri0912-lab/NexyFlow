@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import {
   LayoutDashboard, BarChart3, Lightbulb, FileText,
-  Link2, Sparkles, Settings, CreditCard, LogOut, Cpu, Calendar
+  Link2, Sparkles, Settings, CreditCard, Cpu, Calendar
 } from 'lucide-react'
 import Image from 'next/image'
 
@@ -64,7 +64,7 @@ function NavItem({ href, label, icon: Icon, color, isActive }: {
 
 export default function Sidebar() {
   const pathname = usePathname()
-  const { user, logout } = useAuth()
+  const { user } = useAuth()
 
   return (
     <aside className="hidden lg:flex flex-col w-64 h-screen fixed left-0 top-0 z-40 bg-gradient-to-b from-[#0d0d1a] to-[#12060e] border-r border-white/[0.07] shadow-[4px_0_24px_rgba(0,0,0,0.3)]">
@@ -72,9 +72,9 @@ export default function Sidebar() {
       <div className="p-5 pb-4 border-b border-white/5">
         <Link href="/dashboard" className="flex items-center gap-3">
           <div className="relative w-8 h-8 rounded-xl overflow-hidden ring-1 ring-white/10 shadow-lg">
-            <Image src="/nextbrand.png" alt="NextBrand Logo" fill className="object-cover" />
+            <Image src="/nexyflow.png" alt="Nexyflow Logo" fill className="object-cover" />
           </div>
-          <span className="text-white font-normal text-xl tracking-tight">NextBrand</span>
+          <span className="text-white font-normal text-xl tracking-tight">Nexyflow</span>
         </Link>
       </div>
 
@@ -110,7 +110,7 @@ export default function Sidebar() {
       )}
 
       {/* Main nav */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar">
+      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto sidebar-scrollbar">
         {mainNav.map((item) => (
           <NavItem
             key={item.href}
@@ -157,16 +157,6 @@ export default function Sidebar() {
             isActive={pathname === item.href}
           />
         ))}
-
-        <button
-          onClick={logout}
-          className="group flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-normal text-gray-500 hover:text-red-400 hover:bg-red-500/8 transition-all duration-200"
-        >
-          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 group-hover:bg-red-500/10 transition-all flex-shrink-0">
-            <LogOut size={16} className="transition-colors" />
-          </span>
-          Logout
-        </button>
       </div>
     </aside>
   )

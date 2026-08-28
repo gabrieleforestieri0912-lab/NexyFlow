@@ -39,7 +39,7 @@ export function trackGAEvent(action: string, params?: Record<string, any>) {
   }
 }
 
-export function identifyGA(userId: string, params?: Record<string, any>) {
+export function identifyGA(params?: Record<string, any>) {
   if (typeof window !== 'undefined' && (window as any).gtag) {
     ;(window as any).gtag('set', 'user_properties', params)
   }

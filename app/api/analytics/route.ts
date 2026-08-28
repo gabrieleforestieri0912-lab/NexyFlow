@@ -17,11 +17,12 @@ const generateInstagramDetailed = (stats: any, userId: string) => {
   const followers = stats.followers || 12500
   const noise = (i: number) => getDeterministicNoise(userId + 'ig', i)
   const days = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom']
+  const posts = stats.videos || 84
 
   return {
     followers,
     following: Math.floor(followers * (0.2 + noise(1) * 0.3)),
-    posts: stats.videos || 84,
+    posts,
     engagement: stats.engagement || 3.8,
     avgLikes: Math.floor(followers * (0.03 + noise(2) * 0.02)),
     avgComments: Math.floor(followers * (0.002 + noise(3) * 0.003)),
@@ -30,13 +31,21 @@ const generateInstagramDetailed = (stats: any, userId: string) => {
     impressions: Math.floor(followers * (4 + noise(6) * 2)),
     profileVisits: Math.floor(followers * (0.08 + noise(7) * 0.05)),
     contentMix: {
-      photos: Math.floor((stats.videos || 84) * (0.35 + noise(8) * 0.1)),
-      videos: Math.floor((stats.videos || 84) * (0.4 + noise(9) * 0.1)),
-      carousels: Math.floor((stats.videos || 84) * (0.15 + noise(10) * 0.1)),
+      photos: Math.floor(posts * (0.35 + noise(8) * 0.1)),
+      videos: Math.floor(posts * (0.4 + noise(9) * 0.1)),
+      carousels: Math.floor(posts * (0.15 + noise(10) * 0.1)),
+    },
+    reels: {
+      count: Math.floor(posts * (0.45 + noise(13) * 0.15)),
+      avgViews: Math.floor(followers * (2 + noise(14) * 2)),
+      avgLikes: Math.floor(followers * (0.05 + noise(15) * 0.04)),
+      avgComments: Math.floor(followers * (0.004 + noise(16) * 0.005)),
+      engagementRate: parseFloat((4.5 + noise(17) * 3.5).toFixed(1)),
     },
     topPosts: Array.from({ length: 5 }, (_, i) => ({
       id: `ig_${i}`,
-      type: ['photo', 'video', 'carousel', 'video', 'photo'][i],
+      type: ['photo', 'video', 'carousel', 'reel', 'video'][i],
+      views: Math.floor(followers * (1.2 + noise(22 + i) * 2)),
       likes: Math.floor(followers * (0.04 + noise(20 + i) * 0.03)),
       comments: Math.floor(followers * (0.003 + noise(30 + i) * 0.004)),
       date: `2026-0${7 + i}-${10 + i * 2}`,
@@ -167,6 +176,78 @@ async function buildRealYouTubeHistory(userId: string, currentSubscribers: numbe
   }
 }
 
+const DAY_LABELS = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom']
+
+function dayLabel(dateStr: string): string {
+  const d = new Date(dateStr)
+  const idx = d.getDay() === 0 ? 6 : d.getDay() - 1
+  return DAY_LABELS[idx] || DAY_LABELS[0]
+}
+
+async function getPlatformEngagement(
+  userId: string,
+  platform: 'instagram' | 'tiktok' | 'youtube',
+  stats: any,
+  isYouTube: boolean
+) {
+  const posts = await SocialPost.getRecent(userId, platform, 50)
+  if (posts.length > 0) {
+    return {
+      likes: posts.reduce((a, p) => a + (p.likes || 0), 0),
+      comments: posts.reduce((a, p) => a + (p.comments || 0), 0),
+      shares: posts.reduce((a, p) => a + (p.shares || 0), 0),
+      recentPosts: posts.slice(0, 5).map((p) => ({
+        id: p.post_id,
+        title: p.title || (isYouTube ? 'Video YouTube' : platform === 'instagram' ? 'Reel / Post' : 'Video TikTok'),
+        platform,
+        views: p.views || 0,
+        likes: p.likes || 0,
+        comments: p.comments || 0,
+        shares: p.shares || 0,
+        date: p.published_at ? p.published_at.split('T')[0] : '',
+      })),
+    }
+  }
+
+  const base = isYouTube ? stats?.subscribers || 0 : stats?.followers || 0
+  const views = stats?.views || 0
+  const likes = isYouTube ? Math.floor(views * 0.02) : Math.floor(base * 0.05)
+  const comments = isYouTube ? Math.floor(views * 0.002) : Math.floor(base * 0.005)
+  return { likes, comments, shares: Math.floor(base * 0.002), recentPosts: [] }
+}
+
+async function buildPlatformHistories(
+  userId: string,
+  platforms: ('instagram' | 'tiktok' | 'youtube')[],
+  stats: any,
+  days = 7
+): Promise<Record<string, { name: string; followers: number; views: number }[]>> {
+  const result: Record<string, { name: string; followers: number; views: number }[]> = {}
+
+  for (const platform of platforms) {
+    const real = await SocialMetrics.getRecent(userId, platform, days)
+    if (real.length >= 2) {
+      result[platform] = real.map((m) => ({
+        name: dayLabel(m.metric_date),
+        followers: platform === 'youtube' ? m.subscribers || m.followers : m.followers,
+        views: m.views,
+      }))
+      continue
+    }
+
+    const base = platform === 'youtube' ? stats[platform]?.subscribers || 0 : stats[platform]?.followers || 0
+    const views = stats[platform]?.views || 0
+    const noise = (i: number) => getDeterministicNoise(userId + platform, i)
+    result[platform] = DAY_LABELS.map((name, i) => ({
+      name,
+      followers: Math.max(0, Math.floor(base - (6 - i) * Math.max(1, Math.floor(base * 0.0012)) + (noise(i) - 0.5) * Math.max(1, Math.floor(base * 0.0003)))),
+      views: Math.max(0, Math.floor((views / 7) * (0.8 + noise(i + 10) * 0.5))),
+    }))
+  }
+
+  return result
+}
+
 const generateYouTubeDetailed = async (stats: any, userId: string) => {
   const subscribers = stats.subscribers || 8500
   const totalViews = stats.views || 320000
@@ -279,7 +360,6 @@ export async function GET(request: NextRequest) {
     }
 
     // Altrimenti restituisci i dati aggregati
-    const isFree = !user.plan || user.plan === 'free'
     const stats = user.social_stats
     const connected = user.connected_platforms
 
@@ -311,6 +391,15 @@ export async function GET(request: NextRequest) {
     if (connected.instagram) connectedPlatformsList.push('instagram')
     if (connected.tiktok) connectedPlatformsList.push('tiktok')
     if (connected.youtube) connectedPlatformsList.push('youtube')
+
+    const igEng = connected.instagram ? await getPlatformEngagement(userIdStr, 'instagram', stats.instagram, false) : null
+    const ttEng = connected.tiktok ? await getPlatformEngagement(userIdStr, 'tiktok', stats.tiktok, false) : null
+    const ytEng = connected.youtube ? await getPlatformEngagement(userIdStr, 'youtube', stats.youtube, true) : null
+
+    const totalLikes = (igEng?.likes || 0) + (ttEng?.likes || 0) + (ytEng?.likes || 0)
+    const totalComments = (igEng?.comments || 0) + (ttEng?.comments || 0) + (ytEng?.comments || 0)
+    const histories = await buildPlatformHistories(userIdStr, connectedPlatformsList, stats, 7)
+
     let history = await buildRealHistory(userIdStr, connectedPlatformsList, 7)
 
     // Se non ci sono dati reali aggregati sufficienti, fallback al pattern simulato esistente
@@ -343,19 +432,25 @@ export async function GET(request: NextRequest) {
       totalViews,
       avgEngagement: Math.round(avgEngagement * 10) / 10,
       totalVideos,
-      ...(isFree ? {} : { history }),
+      totalLikes,
+      totalComments,
+      history,
+      histories,
       platforms: {
         instagram: {
           connected: connected.instagram || false,
-          stats: connected.instagram ? stats.instagram || { followers: 0, views: 0, engagement: 0, videos: 0 } : null,
+          stats: connected.instagram ? { ...(stats.instagram || { followers: 0, views: 0, engagement: 0, videos: 0 }), likes: igEng?.likes || 0, comments: igEng?.comments || 0, shares: igEng?.shares || 0 } : null,
+          recentPosts: igEng?.recentPosts || [],
         },
         tiktok: {
           connected: connected.tiktok || false,
-          stats: connected.tiktok ? stats.tiktok || { followers: 0, views: 0, engagement: 0, videos: 0 } : null,
+          stats: connected.tiktok ? { ...(stats.tiktok || { followers: 0, views: 0, engagement: 0, videos: 0 }), likes: ttEng?.likes || 0, comments: ttEng?.comments || 0, shares: ttEng?.shares || 0 } : null,
+          recentPosts: ttEng?.recentPosts || [],
         },
         youtube: {
           connected: connected.youtube || false,
-          stats: connected.youtube ? stats.youtube || { subscribers: 0, views: 0, engagement: 0, videos: 0 } : null,
+          stats: connected.youtube ? { ...(stats.youtube || { subscribers: 0, views: 0, engagement: 0, videos: 0 }), likes: ytEng?.likes || 0, comments: ytEng?.comments || 0, shares: ytEng?.shares || 0 } : null,
+          recentPosts: ytEng?.recentPosts || [],
         },
       },
     })

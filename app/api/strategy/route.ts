@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
 import User from '@/models/User'
 import { checkDailyQueryLimit } from '@/lib/plan'
-
-const OLLAMA_URL = 'http://localhost:11434/api/chat'
+import { aiChatJson } from '@/lib/ai'
+import { buildUserContext } from '@/lib/user-context'
 
 function generateFallbackStrategy(user: any) {
   const stats = user.social_stats
@@ -73,11 +73,14 @@ export async function GET(request: NextRequest) {
       }, { status: 200 })
     }
 
-    const stats = user.social_stats
+    const context = await buildUserContext(user)
 
     const systemPrompt = `Sei un consulente AI per social media. 
-Analizza queste statistiche: ${JSON.stringify(stats)}
-Genera una strategia personalizzata.
+Ecco i dati completi dell'utente (read-only):
+
+${context}
+
+Analizza queste statistiche — incluso like, commenti e i contenuti top di ogni piattaforma — e genera una strategia personalizzata che sfrutti i contenuti che stanno performando meglio.
 Rispondi ESCLUSIVAMENTE in JSON valido in questa struttura esatta:
 {
   "competitors": [{"name": "Nome1", "platform": "Instagram", "followers": "100K", "engagement": "5%"}... 3 elementi],
@@ -94,26 +97,14 @@ Rispondi ESCLUSIVAMENTE in JSON valido in questa struttura esatta:
 
     let strategyData = null
     try {
-      const ollamaRes = await fetch(OLLAMA_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'llama3',
-          messages: [{ role: 'system', content: systemPrompt }],
-          stream: false,
-        }),
-      })
-
-      if (ollamaRes.ok) {
-        const data: any = await ollamaRes.json()
-        const content = data.message?.content || ''
-        const jsonMatch = content.match(/\{[\s\S]*\}/)
-        if (jsonMatch) {
-          strategyData = JSON.parse(jsonMatch[0])
-        }
+      const result = await aiChatJson(systemPrompt, [{ role: 'user', content: 'Genera una strategia personalizzata basata sui miei dati.' }])
+      const content = result.content
+      const jsonMatch = content.match(/\{[\s\S]*\}/)
+      if (jsonMatch) {
+        strategyData = JSON.parse(jsonMatch[0])
       }
     } catch {
-      // Ollama not available
+      // AI not available, use fallback
     }
 
     if (!strategyData) {

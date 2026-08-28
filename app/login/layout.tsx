@@ -1,6 +1,6 @@
 export const metadata = {
   title: 'Login',
-  description: 'Sign in to NextBrand to access your AI-powered social media analytics dashboard.',
+  description: 'Sign in to Nexyflow to access your AI-powered social media analytics dashboard.',
   robots: { index: false, follow: false },
 }
 

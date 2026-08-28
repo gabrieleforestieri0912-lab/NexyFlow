@@ -7,10 +7,10 @@ import { useAuth } from '@/context/AuthContext'
 import { useLanguage } from '@/context/LanguageContext'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  Menu, X, User, Home, LogOut, MessageSquare, Bell, Settings,
+  Menu, X, User, MessageSquare, Bell, Settings,
   CheckCircle, Info, AlertTriangle, AlertCircle, LayoutDashboard,
-  ChevronDown, Camera, Music, Video, BarChart3, Target, FileText,
-  HelpCircle, Mail, CreditCard, Zap, Layers, BookOpen, Sparkles, Rocket, TrendingUp, Link2
+  ChevronDown, BarChart3, Target,
+  HelpCircle, Mail, CreditCard, Zap, Layers, BookOpen, Link2
 } from 'lucide-react'
 import { TiktokIcon, InstagramIcon, YoutubeIcon } from '@/lib/icons'
 
@@ -30,7 +30,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const notificationsRef = useRef<HTMLDivElement>(null)
-  const { user, loading, logout } = useAuth()
+  const { user, loading } = useAuth()
   const { t } = useLanguage()
 
   useEffect(() => {
@@ -111,12 +111,6 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  const handleLogout = async () => {
-    await logout()
-    setDropdownOpen(false)
-    setIsOpen(false)
-  }
-
   const navLinks = [
     {
       label: t('landing.platformsTitle'), icon: Layers,
@@ -184,16 +178,16 @@ const Navbar = () => {
     <>
       <nav className={`fixed z-50 transition-all duration-300 ease-out ${
         scrolled
-          ? 'top-3 left-3 sm:left-4 right-3 sm:right-4 bg-white/90 backdrop-blur-[16px] rounded-2xl shadow-xl border border-gray-200/50'
-          : 'top-0 left-0 right-0 bg-white/80 backdrop-blur-[12px] border-b border-gray-100'
+          ? 'top-3 left-3 sm:left-4 right-3 sm:right-4 bg-white/70 backdrop-blur-[20px] rounded-2xl shadow-2xl shadow-gray-900/10 border border-white/40'
+          : 'top-3 left-3 sm:left-4 right-3 sm:right-4 bg-white/40 backdrop-blur-[14px] rounded-2xl border border-white/50 shadow-lg shadow-gray-900/5'
       }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <img src="/nextbrand.png" alt="NextBrand" className="w-8 h-8 rounded-lg object-contain" />
-            <span className="text-xl font-normal text-gray-900">NextBrand</span>
+            <img src="/nexyflow.png" alt="Nexyflow" className="w-8 h-8 rounded-lg object-contain" />
+            <span className="text-xl font-normal text-gray-900">Nexyflow</span>
           </Link>
 
           {/* Desktop Links */}
@@ -224,7 +218,7 @@ const Navbar = () => {
                         transition={{ duration: 0.15 }}
                         onMouseEnter={() => handleDropdownEnter(idx)}
                         onMouseLeave={handleDropdownLeave}
-                        className="absolute left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 origin-top-left"
+                        className="absolute left-0 mt-2 w-64 bg-white/70 backdrop-blur-[20px] rounded-2xl shadow-2xl shadow-gray-900/10 border border-white/40 py-2 origin-top-left"
                       >
                         {link.items.map(item => (
                           <Link
@@ -291,7 +285,7 @@ const Navbar = () => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute right-0 mt-3 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden origin-top-right"
+                        className="absolute right-0 mt-3 w-80 bg-white/70 backdrop-blur-[20px] rounded-2xl shadow-2xl shadow-gray-900/10 border border-white/40 overflow-hidden origin-top-right"
                       >
                         <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-gray-50 to-white">
                           <div className="flex items-center gap-2">
@@ -363,7 +357,7 @@ const Navbar = () => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 origin-top-right"
+                        className="absolute right-0 mt-2 w-56 bg-white/70 backdrop-blur-[20px] rounded-xl shadow-lg shadow-gray-900/10 border border-white/40 py-2 origin-top-right"
                       >
                         <div className="px-4 py-2 border-b border-gray-100">
                           <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
@@ -381,10 +375,6 @@ const Navbar = () => {
                         <Link href="/settings" onClick={() => setDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 font-medium text-sm">
                           <Settings className="w-4 h-4" /> {t('nav.settings') || 'Impostazioni'}
                         </Link>
-
-                        <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 w-full font-medium text-sm">
-                          <LogOut className="w-4 h-4" /> {t('nav.logout')}
-                        </button>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -415,94 +405,89 @@ const Navbar = () => {
       </div>
       </nav>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className={`fixed z-40 lg:hidden border-b border-gray-100 bg-white/95 backdrop-blur-xl max-h-[calc(100vh-80px)] overflow-y-auto ${
-              scrolled
-                ? 'top-[76px] left-3 sm:left-4 right-3 sm:right-4 rounded-b-2xl shadow-xl'
-                : 'top-16 left-0 right-0'
-            }`}
-          >
-            <div className="px-4 py-3 space-y-1">
-              {navLinks.map(link => (
-                link.items ? (
-                  <div key={link.label} className="space-y-0.5">
-                    <div className="flex items-center gap-2 px-4 py-2 text-xs font-normal text-gray-400 uppercase tracking-wider">
-                      <link.icon className="w-3.5 h-3.5" />
-                      {link.label}
-                    </div>
-                    {link.items.map(item => (
-                      <Link key={item.label} href={item.href} onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-[#f09433]/5 hover:to-[#dc2743]/5 hover:text-[#dc2743] transition-all text-sm">
-                        <item.icon className="w-4 h-4" />
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                ) : (
-                  <Link key={link.label} href={link.href} onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-[#f09433]/5 hover:to-[#dc2743]/5 hover:text-[#dc2743] transition-all">
-                    <link.icon className="w-4 h-4" />
-                    {link.label}
-                  </Link>
-                )
-              ))}
+      {/* Slide-in Menu (Terranova style) */}
+      <div className={`menu-overlay ${isOpen ? 'is-open' : ''}`} id="menu" aria-hidden={!isOpen}>
+        <div className="menu-overlay__backdrop" onClick={() => setIsOpen(false)} />
+        <div className="menu-overlay__panel">
+          <button className="menu-overlay__close" onClick={() => setIsOpen(false)} aria-label={t('common.close')}>
+            <svg className="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+            </svg>
+            <span>{t('common.close')}</span>
+          </button>
 
-              <div className="border-t border-gray-100 my-2" />
-
-              {user ? (
-                <>
-                  <div className="flex items-center gap-3 px-4 py-3">
-                    <div className="w-9 h-9 rounded-full overflow-hidden bg-gradient-to-r from-[#f09433] to-[#dc2743] flex items-center justify-center text-white shrink-0">
-                      {user.avatar ? (
-                        <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
-                      ) : (
-                        <User className="w-5 h-5" />
-                      )}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-sm font-normal text-gray-900 truncate">{user.name}</p>
-                      <p className="text-xs text-gray-500 truncate">{user.email}</p>
-                    </div>
-                  </div>
-                  <Link href="/dashboard" onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-[#f09433]/5 hover:to-[#dc2743]/5 hover:text-[#dc2743] transition-all">
-                    <LayoutDashboard className="w-4 h-4" /> {t('nav.dashboard')}
-                  </Link>
-                  <Link href="/chat" onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-[#f09433]/5 hover:to-[#dc2743]/5 hover:text-[#dc2743] transition-all">
-                    <MessageSquare className="w-4 h-4" /> {t('nav.chat')}
-                  </Link>
-                  <Link href="/settings" onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-[#f09433]/5 hover:to-[#dc2743]/5 hover:text-[#dc2743] transition-all">
-                    <Settings className="w-4 h-4" /> {t('nav.settings') || 'Impostazioni'}
-                  </Link>
-                  <button onClick={handleLogout}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 font-medium hover:bg-red-50 transition-all w-full">
-                    <LogOut className="w-4 h-4" /> {t('nav.logout')}
-                  </button>
-                </>
+          <nav className="menu-overlay__nav">
+            {navLinks.map(link =>
+              link.items ? (
+                <div key={link.label}>
+                  <span className="menu-overlay__link">
+                    <span className="menu-overlay__linkText">{link.label}</span>
+                    <svg className="menu-overlay__arrow icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </span>
+                  {link.items.map(item => (
+                    <Link key={item.label} href={item.href} onClick={() => setIsOpen(false)}
+                      className="block pl-7 py-1.5 text-sm text-white/60 hover:text-[#f09433] transition-colors">
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
               ) : (
-                <>
-                  <Link href="/login" onClick={() => setIsOpen(false)}
-                    className="block px-4 py-3 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-[#f09433]/5 hover:to-[#dc2743]/5 hover:text-[#dc2743] transition-all">
-                    {t('nav.login')}
-                  </Link>
-                  <Link href="/register" onClick={() => setIsOpen(false)}
-                    className="block px-4 py-3 rounded-xl text-white font-medium bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] text-center">
-                    {t('pricing.startFree')}
-                  </Link>
-                </>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                <Link key={link.label} href={link.href} onClick={() => setIsOpen(false)} className="menu-overlay__link">
+                  <span className="menu-overlay__linkText">{link.label}</span>
+                  <svg className="menu-overlay__arrow icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                       strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                  </svg>
+                </Link>
+              )
+            )}
+            {user ? (
+              <>
+                <Link href="/dashboard" onClick={() => setIsOpen(false)} className="menu-overlay__link">
+                  <span className="menu-overlay__linkText">{t('nav.dashboard')}</span>
+                  <svg className="menu-overlay__arrow icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                       strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link href="/settings" onClick={() => setIsOpen(false)} className="menu-overlay__link">
+                  <span className="menu-overlay__linkText">{t('nav.settings') || 'Impostazioni'}</span>
+                  <svg className="menu-overlay__arrow icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                       strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                  </svg>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/login" onClick={() => setIsOpen(false)} className="menu-overlay__link">
+                  <span className="menu-overlay__linkText">{t('nav.login')}</span>
+                  <svg className="menu-overlay__arrow icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                       strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link href="/register" onClick={() => setIsOpen(false)} className="menu-overlay__link">
+                  <span className="menu-overlay__linkText">{t('pricing.startFree')}</span>
+                  <svg className="menu-overlay__arrow icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                       strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                  </svg>
+                </Link>
+              </>
+            )}
+          </nav>
+
+          <div className="menu-overlay__foot">
+            <span className="menu-overlay__label">Get in touch</span>
+            <a className="menu-overlay__mail" href="mailto:hello@nexyflow.it">hello@nexyflow.it</a>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

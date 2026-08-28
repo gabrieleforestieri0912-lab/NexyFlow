@@ -1,6 +1,6 @@
 export const metadata = {
   title: 'Register',
-  description: 'Create your free NextBrand account and start growing your social media with AI-powered analytics.',
+  description: 'Create your free Nexyflow account and start growing your social media with AI-powered analytics.',
   robots: { index: false, follow: false },
 }
 

@@ -1,48 +1,73 @@
-export default function sitemap() {
-  const baseUrl = 'https://nextbrand.it'
+import type { MetadataRoute } from 'next'
+import { features } from '@/lib/features-data'
 
-  return [
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://nexyflow.it'
+  const today = new Date()
+
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
+      lastModified: today,
+      changeFrequency: 'weekly',
       priority: 1,
     },
     {
       url: `${baseUrl}/pricing`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
+      lastModified: today,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/integrazioni`,
+      lastModified: today,
+      changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/help`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/register`,
+      lastModified: today,
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/login`,
+      lastModified: today,
+      changeFrequency: 'yearly',
       priority: 0.4,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly' as const,
+      lastModified: today,
+      changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly' as const,
+      lastModified: today,
+      changeFrequency: 'yearly',
       priority: 0.3,
     },
-    {
-      url: `${baseUrl}/integrazioni`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    },
   ]
+
+  const featurePages: MetadataRoute.Sitemap = features.map((feature) => ({
+    url: `${baseUrl}/features/${feature.slug}`,
+    lastModified: today,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }))
+
+  return [...staticPages, ...featurePages]
 }

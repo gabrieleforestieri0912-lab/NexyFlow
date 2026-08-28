@@ -1,11 +1,10 @@
 {
-  "name": "nextbrand",
+  "name": "nexyflow",
   "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",
-    "build:extension": "node scripts/build-extension.mjs",
     "start": "next start",
     "lint": "eslint"
   },
@@ -20,7 +19,6 @@
     "bcryptjs": "^3.0.3",
     "cookie": "^1.1.1",
     "framer-motion": "^12.38.0",
-    "google-auth-library": "^10.6.2",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^1.4.0",
     "next": "16.1.7",

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { BarChart3, Target, Zap, TrendingUp, Brain, Shield, ArrowRight } from 'lucide-react'
+import { Zap, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { features, type Feature } from '@/lib/features-data'
 
@@ -51,7 +51,7 @@ function FeatureCard({ feature, delay }: { feature: Feature; delay: number }) {
     >
       <div
         ref={ref}
-        className="relative h-full rounded-2xl border border-gray-200 bg-white p-6 flex flex-col transition-all duration-200 hover:bg-gray-50"
+        className="relative h-full rounded-2xl glass-panel p-6 flex flex-col transition-all duration-200 hover:bg-white/60"
         style={{
           boxShadow: hovered
             ? '0 12px 40px -12px rgba(0,0,0,0.1)'
@@ -99,7 +99,7 @@ function FeatureCard({ feature, delay }: { feature: Feature; delay: number }) {
 
         {/* Big card: mini chart */}
         {feature.big && (
-          <div className="mt-6 pt-4 border-t border-gray-100">
+          <div className="mt-6 pt-4 border-t border-white/40">
             <div className="flex items-end gap-1 h-10">
               {[18, 28, 22, 35, 30, 42, 38, 50, 44, 58].map((h, i) => (
                 <MiniBar key={i} color={feature.accentColor} height={h * 0.7} />
@@ -133,11 +133,11 @@ function FeatureCard({ feature, delay }: { feature: Feature; delay: number }) {
 
 export default function FeaturesSection() {
   return (
-    <section className="relative py-24 px-4 bg-gray-50/50" id="features">
+    <section className="glass-section py-24 px-4" id="features">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 mb-5">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-chip mb-5">
             <Zap size={14} className="text-red-500" />
             <span className="text-sm font-normal text-red-400">Funzionalità</span>
           </div>

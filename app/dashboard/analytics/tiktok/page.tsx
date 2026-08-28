@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Users, Eye, Heart, MessageCircle, Music, TrendingUp, Clock, ArrowUp, ArrowDown, Loader2, Activity, Target, BarChart3, Share2, Play, Tag } from 'lucide-react'
+import { Users, Eye, Heart, Music, TrendingUp, Clock, ArrowUp, Loader2, Activity, Target, BarChart3, Share2, Play, Tag } from 'lucide-react'
 import { TiktokIcon } from '@/lib/icons'
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import ProtectedRoute from '@/components/ProtectedRoute'

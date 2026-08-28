@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
-import { Users, Eye, TrendingUp, Video, Link2, Sparkles, ArrowUp, Loader2, CheckCircle, BarChart3, ChevronRight } from 'lucide-react'
+import { Users, Eye, TrendingUp, Video, Link2, Sparkles, ArrowUp, Loader2, CheckCircle, BarChart3, ChevronRight, ArrowRight, Heart, MessageCircle } from 'lucide-react'
 import { YoutubeIcon, TiktokIcon, InstagramIcon } from '@/lib/icons'
 import ProtectedRoute from '@/components/ProtectedRoute'
+import AnalyticsChart from '@/components/AnalyticsChart'
 import { AreaChart, Area, ResponsiveContainer, Tooltip } from 'recharts'
 
 interface DashboardData {
@@ -13,9 +14,15 @@ interface DashboardData {
   totalViews: number
   avgEngagement: number
   totalVideos: number
+  totalLikes: number
+  totalComments: number
   history: { name: string; followers: number; views: number }[]
   platforms: Record<string, { connected: boolean; stats: any }>
 }
+
+const DEFAULT_DAYS = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom']
+
+const zeroHistory = DEFAULT_DAYS.map((name) => ({ name, followers: 0, views: 0 }))
 
 // Mini sparkline component
 function Sparkline({ data, dataKey, color }: { data: any[]; dataKey: string; color: string }) {
@@ -145,6 +152,28 @@ export default function DashboardPage() {
       sparkColor: '#06b6d4',
       sparkKey: 'views',
     },
+    {
+      label: 'Mi Piace',
+      value: data?.totalLikes?.toLocaleString() || '0',
+      icon: Heart,
+      change: '+9%',
+      cardClass: 'bg-[rgba(239,68,68,0.08)] border-[rgba(239,68,68,0.2)] hover:bg-[rgba(239,68,68,0.12)] hover:border-[rgba(239,68,68,0.35)] hover:shadow-[0_0_30px_rgba(239,68,68,0.12),0_20px_40px_-20px_rgba(0,0,0,0.4)]',
+      iconColor: '#ef4444',
+      iconBg: 'rgba(239,68,68,0.15)',
+      sparkColor: '#ef4444',
+      sparkKey: 'views',
+    },
+    {
+      label: 'Commenti',
+      value: data?.totalComments?.toLocaleString() || '0',
+      icon: MessageCircle,
+      change: '+4%',
+      cardClass: 'bg-[rgba(249,115,22,0.08)] border-[rgba(249,115,22,0.2)] hover:bg-[rgba(249,115,22,0.12)] hover:border-[rgba(249,115,22,0.35)] hover:shadow-[0_0_30px_rgba(249,115,22,0.12),0_20px_40px_-20px_rgba(0,0,0,0.4)]',
+      iconColor: '#f97316',
+      iconBg: 'rgba(249,115,22,0.15)',
+      sparkColor: '#f97316',
+      sparkKey: 'views',
+    },
   ]
 
   const platformConfig = {
@@ -164,16 +193,25 @@ export default function DashboardPage() {
             </h1>
             <p className="text-gray-500 mt-0.5 text-sm">Ecco le tue performance oggi.</p>
           </div>
-          {searchParams.get('success') && (
-            <div className="flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/20 text-green-400 rounded-xl text-sm">
-              <CheckCircle className="w-4 h-4" />
-              Pagamento completato!
-            </div>
-          )}
+          <div className="flex items-center gap-3">
+            {searchParams.get('success') && (
+              <div className="flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/20 text-green-400 rounded-xl text-sm">
+                <CheckCircle className="w-4 h-4" />
+                Pagamento completato!
+              </div>
+            )}
+            <button
+              onClick={() => router.push('/dashboard/analytics')}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-white/10 text-gray-300 text-sm hover:bg-white/5 hover:text-white active:scale-95 transition-all"
+            >
+              Analisi dettagliate
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
 
         {/* Stat Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
           {stats.map((stat, i) => (
             <div
               key={stat.label}
@@ -201,7 +239,7 @@ export default function DashboardPage() {
               <p className="text-2xl font-normal text-white tracking-tight">{stat.value}</p>
               <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
               <Sparkline
-                data={data?.history || []}
+                data={data?.history?.length ? data.history : zeroHistory}
                 dataKey={stat.sparkKey}
                 color={stat.sparkColor}
               />
@@ -240,38 +278,7 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="h-[260px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data?.history || []} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="mainGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={chartMode === 'followers' ? '#dc2743' : '#8b5cf6'} stopOpacity={0.25} />
-                    <stop offset="95%" stopColor={chartMode === 'followers' ? '#dc2743' : '#8b5cf6'} stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'rgba(9,9,15,0.95)',
-                    border: `1px solid ${chartMode === 'followers' ? 'rgba(220,39,67,0.3)' : 'rgba(139,92,246,0.3)'}`,
-                    borderRadius: '12px',
-                    color: '#fff',
-                    fontSize: '12px',
-                  }}
-                  formatter={(value: number) => [
-                    value >= 1000 ? `${(value / 1000).toFixed(1)}k` : value,
-                    chartMode === 'followers' ? 'Follower' : 'Visualizzazioni',
-                  ]}
-                />
-                <Area
-                  type="monotone"
-                  dataKey={chartMode}
-                  stroke={chartMode === 'followers' ? '#dc2743' : '#8b5cf6'}
-                  strokeWidth={2}
-                  fillOpacity={1}
-                  fill="url(#mainGrad)"
-                  dot={false}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+            <AnalyticsChart data={data?.history?.length ? data.history : zeroHistory} mode={chartMode} />
           </div>
         </div>
 

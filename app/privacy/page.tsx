@@ -7,7 +7,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-2xl font-normal text-gray-900 mb-3">1. Introduzione</h2>
             <p className="text-gray-600 leading-relaxed">
-              La presente Privacy Policy descrive come NextBrand raccoglie, utilizza e protegge i dati personali degli utenti. Utilizzando il nostro servizio, acconsenti alla raccolta e all&apos;utilizzo delle informazioni secondo quanto descritto in questo documento.
+              La presente Privacy Policy descrive come Nexyflow raccoglie, utilizza e protegge i dati personali degli utenti. Utilizzando il nostro servizio, acconsenti alla raccolta e all&apos;utilizzo delle informazioni secondo quanto descritto in questo documento.
             </p>
           </section>
 

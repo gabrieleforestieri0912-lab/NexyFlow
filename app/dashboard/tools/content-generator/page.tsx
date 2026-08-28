@@ -79,7 +79,7 @@ export default function ContentGeneratorPage() {
       <div className="space-y-8">
         <div>
           <h1 className="text-3xl font-normal text-white tracking-tight">AI Content Generator</h1>
-          <p className="text-gray-400 mt-1 font-normal font-sans">Sfrutta l'intelligenza artificiale per creare script, caption e hashtag per i tuoi canali.</p>
+          <p className="text-gray-400 mt-1 font-normal font-sans">Sfrutta l&apos;intelligenza artificiale per creare script, caption e hashtag per i tuoi canali.</p>
         </div>
 
         {/* Tab Selector */}
@@ -146,7 +146,7 @@ export default function ContentGeneratorPage() {
               {loading ? (
                 <div className="flex flex-col items-center justify-center h-full space-y-3">
                   <Loader2 className="w-8 h-8 animate-spin text-[#dc2743]" />
-                  <p className="text-xs text-gray-500 font-medium">L'AI sta scrivendo il tuo testo...</p>
+                  <p className="text-xs text-gray-500 font-medium">L&apos;AI sta scrivendo il tuo testo...</p>
                 </div>
               ) : result ? (
                 <p className="text-gray-300 text-sm whitespace-pre-wrap leading-relaxed font-sans">{result}</p>

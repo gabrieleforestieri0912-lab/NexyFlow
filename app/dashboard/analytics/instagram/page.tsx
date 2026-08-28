@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Users, Eye, Heart, MessageCircle, Camera, Film, Layout, TrendingUp, Clock, ArrowUp, ArrowDown, Loader2, Activity, Target, BarChart3, Share2, Images } from 'lucide-react'
+import { Users, Eye, Heart, MessageCircle, Camera, Film, Layout, TrendingUp, Clock, ArrowUp, Loader2, Activity, Target, BarChart3, Share2, Images, Clapperboard } from 'lucide-react'
 import { InstagramIcon } from '@/lib/icons'
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import ProtectedRoute from '@/components/ProtectedRoute'
@@ -12,7 +12,8 @@ interface InstagramDetailed {
   avgLikes: number; avgComments: number; storyCompletionRate: number
   reach: number; impressions: number; profileVisits: number
   contentMix: { photos: number; videos: number; carousels: number }
-  topPosts: { id: string; type: string; likes: number; comments: number; date: string }[]
+  reels: { count: number; avgViews: number; avgLikes: number; avgComments: number; engagementRate: number }
+  topPosts: { id: string; type: string; views: number; likes: number; comments: number; date: string }[]
   bestPostingTime: string; growthRate: number
   followerHistory: { name: string; value: number }[]
   engagementHistory: { name: string; value: number }[]
@@ -56,8 +57,6 @@ export default function InstagramAnalyticsPage() {
     { label: 'Media Like', value: data.avgLikes.toLocaleString(), icon: Heart, color: '#ef4444', bg: 'rgba(239,68,68,0.1)', suffix: '' },
     { label: 'Media Commenti', value: data.avgComments.toLocaleString(), icon: MessageCircle, color: '#f97316', bg: 'rgba(249,115,22,0.1)', suffix: '' },
   ]
-
-  const COLORS = ['#f09433', '#dc2743', '#bc1888']
 
   return (
     <ProtectedRoute>
@@ -190,6 +189,41 @@ export default function InstagramAnalyticsPage() {
 
           <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-4">
+              <Clapperboard className="w-4 h-4 text-red-400" />
+              <h2 className="text-sm font-normal text-white">Reels Performance</h2>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+                <p className="text-lg font-normal text-white tracking-tight">{data.reels.count.toLocaleString()}</p>
+                <p className="text-[11px] text-gray-500 mt-0.5">Reels pubblicati</p>
+              </div>
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+                <p className="text-lg font-normal text-white tracking-tight">{data.reels.avgViews.toLocaleString()}</p>
+                <p className="text-[11px] text-gray-500 mt-0.5">Visualizzazioni medie</p>
+              </div>
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+                <p className="text-lg font-normal text-white tracking-tight">{data.reels.avgLikes.toLocaleString()}</p>
+                <p className="text-[11px] text-gray-500 mt-0.5">Like medi</p>
+              </div>
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+                <p className="text-lg font-normal text-white tracking-tight">{data.reels.avgComments.toLocaleString()}</p>
+                <p className="text-[11px] text-gray-500 mt-0.5">Commenti medi</p>
+              </div>
+            </div>
+            <div className="mt-4 pt-4 border-t border-white/[0.06]">
+              <div className="flex items-center justify-between text-xs mb-2">
+                <span className="text-gray-400">Engagement medio Reels</span>
+                <span className="text-green-400">{data.reels.engagementRate}%</span>
+              </div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-gray-400">Share per Reel</span>
+                <span className="text-white">{(data.reels.avgViews * 0.01).toFixed(0)}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-5">
+            <div className="flex items-center gap-2 mb-4">
               <Clock className="w-4 h-4 text-cyan-400" />
               <h2 className="text-sm font-normal text-white">Miglior Orario</h2>
             </div>
@@ -222,6 +256,7 @@ export default function InstagramAnalyticsPage() {
               <thead>
                 <tr className="border-b border-white/[0.06]">
                   <th className="text-left text-[11px] text-gray-500 uppercase tracking-wider pb-3 font-normal">Tipo</th>
+                  <th className="text-left text-[11px] text-gray-500 uppercase tracking-wider pb-3 font-normal">Visualizzazioni</th>
                   <th className="text-left text-[11px] text-gray-500 uppercase tracking-wider pb-3 font-normal">Like</th>
                   <th className="text-left text-[11px] text-gray-500 uppercase tracking-wider pb-3 font-normal">Commenti</th>
                   <th className="text-left text-[11px] text-gray-500 uppercase tracking-wider pb-3 font-normal">Engagement</th>
@@ -229,16 +264,17 @@ export default function InstagramAnalyticsPage() {
                 </tr>
               </thead>
               <tbody>
-                {data.topPosts.map((post, i) => {
+                {data.topPosts.map((post) => {
                   const totalEngagement = ((post.likes + post.comments) / data.followers * 100).toFixed(1)
                   return (
                     <tr key={post.id} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors">
                       <td className="py-3 text-white">
                         <span className="inline-flex items-center gap-1.5">
-                          {post.type === 'photo' ? <Camera className="w-4 h-4 text-orange-400" /> : post.type === 'video' ? <Film className="w-4 h-4 text-red-400" /> : <Images className="w-4 h-4 text-pink-400" />}
-                          {post.type}
+                          {post.type === 'photo' ? <Camera className="w-4 h-4 text-orange-400" /> : post.type === 'reel' ? <Clapperboard className="w-4 h-4 text-red-400" /> : post.type === 'video' ? <Film className="w-4 h-4 text-red-400" /> : <Images className="w-4 h-4 text-pink-400" />}
+                          {post.type === 'reel' ? 'Reel' : post.type}
                         </span>
                       </td>
+                      <td className="py-3 text-white">{post.views?.toLocaleString() || '—'}</td>
                       <td className="py-3 text-white">{post.likes.toLocaleString()}</td>
                       <td className="py-3 text-white">{post.comments.toLocaleString()}</td>
                       <td className="py-3"><span className="text-green-400">{totalEngagement}%</span></td>
@@ -287,7 +323,7 @@ export default function InstagramAnalyticsPage() {
               </div>
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
                 <p className="text-sm text-white flex items-center gap-2"><BarChart3 className="w-4 h-4 text-blue-400 flex-shrink-0" /> Mix di contenuti: {contentMixData[1].value > contentMixData[0].value ? 'I video dominano il tuo feed' : 'Le foto sono il tuo formato principale'}</p>
-                <p className="text-xs text-gray-500 mt-1">Considera di alternare i formati per mantenere alto l'interesse del pubblico.</p>
+                <p className="text-xs text-gray-500 mt-1">Considera di alternare i formati per mantenere alto l&apos;interesse del pubblico.</p>
               </div>
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
                 <p className="text-sm text-white flex items-center gap-2"><Target className="w-4 h-4 text-purple-400 flex-shrink-0" /> Copertura: {((data.reach / data.impressions) * 100).toFixed(0)}% delle impressioni sono utenti unici</p>

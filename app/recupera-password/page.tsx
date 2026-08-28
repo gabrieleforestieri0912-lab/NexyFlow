@@ -116,7 +116,7 @@ export default function RecuperaPasswordPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex justify-center mb-8">
-            <img src="/nextbrand.png" alt="NextBrand" className="w-14 h-14 object-contain" />
+            <img src="/nexyflow.png" alt="Nexyflow" className="w-14 h-14 object-contain" />
           </Link>
           <h1 className="text-3xl font-normal text-gray-900 mb-2">Recupera Accesso</h1>
           <p className="text-gray-500">

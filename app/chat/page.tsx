@@ -12,8 +12,9 @@ import ChatSidebar from '@/components/chat/ChatSidebar'
 import ChatMessage from '@/components/chat/ChatMessage'
 import ChatInput from '@/components/chat/ChatInput'
 import DeleteConfirmModal from '@/components/chat/DeleteConfirmModal'
+import ChatTour, { hasTourCompleted, ReplayTourButton } from '@/components/chat/ChatTour'
 
-const STORAGE_KEY = 'nextbrand_chats'
+const STORAGE_KEY = 'nexyflow_chats'
 
 interface ChatMessage {
   role: 'user' | 'assistant'
@@ -42,7 +43,7 @@ function saveChats(chats: Chat[]) {
 }
 
 export default function ChatPage() {
-  const { user, loading: authLoading, logout } = useAuth()
+  const { user, loading: authLoading } = useAuth()
   const { t } = useLanguage()
   const router = useRouter()
   const [chats, setChats] = useState<Chat[]>([])
@@ -58,6 +59,8 @@ export default function ChatPage() {
   const [sidebarAccountOpen, setSidebarAccountOpen] = useState(false)
   const [showScrollButton, setShowScrollButton] = useState(false)
   const [attachedFile, setAttachedFile] = useState<File | null>(null)
+  const [tourReady, setTourReady] = useState(false)
+  const [tourOpen, setTourOpen] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
@@ -82,6 +85,11 @@ export default function ChatPage() {
       setChats(savedChats)
       setCurrentChatId(savedChats[0].id)
       setMessages(savedChats[0].messages || [])
+    }
+    setTourReady(true)
+    if (!hasTourCompleted()) {
+      const timer = setTimeout(() => setTourOpen(true), 800)
+      return () => clearTimeout(timer)
     }
   }, [user, authLoading, router, createNewChat])
 
@@ -198,8 +206,6 @@ export default function ChatPage() {
     setDeleteConfirmId(null)
   }
 
-  const handleLogout = async () => { await logout(); router.push('/login') }
-
   const copyToClipboard = async (text: string) => { try { await navigator.clipboard.writeText(text) } catch {} }
 
   const retryMessage = useCallback((content: string) => { setInput(content); inputRef.current?.focus() }, [])
@@ -246,9 +252,29 @@ export default function ChatPage() {
   return (
     <div className="h-screen flex bg-gray-50 text-gray-900">
       {!isSidebarOpen && (
-        <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white rounded-lg shadow-md">
-          <PanelLeftOpen className="w-5 h-5" />
-        </button>
+        <>
+          <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white rounded-lg shadow-md">
+            <PanelLeftOpen className="w-5 h-5" />
+          </button>
+          <div className="lg:hidden fixed top-4 right-4 z-50 bg-white rounded-xl shadow-md">
+            <ReplayTourButton t={t} onClick={() => setTourOpen(true)} />
+          </div>
+        </>
+      )}
+
+      {tourReady && (
+        <ChatTour
+          t={t}
+          open={tourOpen}
+          onClose={() => setTourOpen(false)}
+          steps={[
+            { title: t('chat.tour.steps.0.title'), body: t('chat.tour.steps.0.body'), target: '[data-tour-target="chat-input"]' },
+            { title: t('chat.tour.steps.1.title'), body: t('chat.tour.steps.1.body'), target: '[data-tour-target="suggestions"]' },
+            { title: t('chat.tour.steps.2.title'), body: t('chat.tour.steps.2.body'), target: '[data-tour-target="new-chat"]' },
+            { title: t('chat.tour.steps.3.title'), body: t('chat.tour.steps.3.body'), target: '[data-tour-target="chat-history"]' },
+            { title: t('chat.tour.steps.4.title'), body: t('chat.tour.steps.4.body'), target: '[data-tour-target="account"]' },
+          ]}
+        />
       )}
 
       <ChatSidebar
@@ -256,7 +282,6 @@ export default function ChatPage() {
         currentChatId={currentChatId}
         isSidebarOpen={isSidebarOpen}
         isDesktopSidebarOpen={isDesktopSidebarOpen}
-        deleteConfirmId={deleteConfirmId}
         sidebarAccountOpen={sidebarAccountOpen}
         userName={user.name}
         userPlan={user.plan}
@@ -267,7 +292,6 @@ export default function ChatPage() {
         onToggleSidebar={() => setIsSidebarOpen(false)}
         onToggleDesktopSidebar={() => setIsDesktopSidebarOpen(!isDesktopSidebarOpen)}
         onToggleAccount={() => setSidebarAccountOpen(!sidebarAccountOpen)}
-        onLogout={handleLogout}
         t={t}
       />
 
@@ -280,6 +304,10 @@ export default function ChatPage() {
           </button>
         )}
 
+        <div className="hidden lg:flex fixed top-4 right-4 z-30">
+          <ReplayTourButton t={t} onClick={() => setTourOpen(true)} />
+        </div>
+
         <div className="flex-1 flex flex-col min-h-0">
           {messages.length === 0 ? (
             <div className="flex-1 flex flex-col items-center justify-center px-4">
@@ -291,9 +319,9 @@ export default function ChatPage() {
                   inputRef={inputRef} fileInputRef={fileInputRef}
                   onChange={setInput} onSend={sendMessage} onStop={handleStop}
                   onFileAttach={(e) => { if (e.target.files?.[0]) setAttachedFile(e.target.files[0]) }}
-                  onRemoveFile={() => setAttachedFile(null)} placeholder={t('chat.inputPlaceholder')} t={t} />
+                  onRemoveFile={() => setAttachedFile(null)} placeholder={t('chat.inputPlaceholder')} />
               </div>
-              <div className="flex flex-row flex-wrap justify-start gap-2.5 max-w-xl mt-6">
+              <div className="flex flex-row flex-wrap justify-start gap-2.5 max-w-xl mt-6" data-tour-target="suggestions">
                 {[
                   { icon: TrendingUp, text: t('chat.suggestions.increaseEngagement') },
                   { icon: Clock, text: t('chat.suggestions.bestPostingTimes') },
@@ -323,7 +351,7 @@ export default function ChatPage() {
                   {isLoading && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-4">
                       <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden p-1">
-                        <img src="/nextbrand.png" alt="AI" className="w-full h-full object-contain" />
+                        <img src="/nexyflow.png" alt="AI" className="w-full h-full object-contain" />
                       </div>
                       <div className="bg-white border border-gray-200 rounded-2xl p-4">
                         <div className="flex gap-1">
@@ -348,7 +376,7 @@ export default function ChatPage() {
                 inputRef={inputRef} fileInputRef={fileInputRef}
                 onChange={setInput} onSend={sendMessage} onStop={handleStop}
                 onFileAttach={(e) => { if (e.target.files?.[0]) setAttachedFile(e.target.files[0]) }}
-                onRemoveFile={() => setAttachedFile(null)} placeholder={t('chat.inputPlaceholder')} t={t} />
+                onRemoveFile={() => setAttachedFile(null)} placeholder={t('chat.inputPlaceholder')} />
             </>
           )}
         </div>

@@ -21,16 +21,6 @@ const nextConfig = {
       },
     ]
   },
-  webpack: (config) => {
-    const entry = config.entry;
-    config.entry = async () => {
-      const entries = await entry();
-      entries['popup'] = './popup/main.js';
-      return entries;
-    };
-
-    return config;
-  },
 };
 
 export default nextConfig;

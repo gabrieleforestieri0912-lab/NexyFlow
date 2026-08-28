@@ -43,7 +43,7 @@ export default function RegisterPage() {
         transition={{ duration: 0.3 }}
       >
         <div className="flex justify-center mb-6">
-          <img src="/nextbrand.png" alt="NextBrand" className="w-14 h-14 object-contain" />
+          <img src="/nexyflow.png" alt="Nexyflow" className="w-14 h-14 object-contain" />
         </div>
         <div className="text-center mb-8">
           <h1 className="text-3xl font-normal text-gray-900 mb-2">Crea il tuo account</h1>

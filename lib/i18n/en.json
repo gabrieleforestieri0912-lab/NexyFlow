@@ -45,7 +45,7 @@
     "heroTitleStart": "Analyze your Social Media",
     "heroTitleEnd": "with Artificial Intelligence",
     "heroTitleLine3": "Personal Brand",
-    "heroSubtitle": "NextBrand uses AI to give you instant insights on Instagram, TikTok and YouTube. Grow faster with data.",
+    "heroSubtitle": "Nexyflow uses AI to give you instant insights on Instagram, TikTok and YouTube. Grow faster with data.",
     "heroCta": "Start Free",
     "goToDashboard": "Go to Dashboard",
     "tryChat": "Try AI Chat",
@@ -75,7 +75,7 @@
     "youtubeFeature3": "Subscriber Growth",
     "goToChat": "Go to Chat",
     "tryChatFree": "Try AI Chat Free",
-    "demoResponse": "Hi! I'm NextBrand AI. I can help you analyze your social media profiles, suggest content strategies, and find the best times to post. Try asking me something!",
+    "demoResponse": "Hi! I'm Nexyflow AI. I can help you analyze your social media profiles, suggest content strategies, and find the best times to post. Try asking me something!",
     "featuresTitle": "Everything you need to",
     "featuresTitleHighlight": "grow",
     "featuresSubtitle": "Powerful, easy-to-use tools to analyze, optimize and scale your social presence.",
@@ -87,22 +87,10 @@
     "featureRealtimeDesc": "Monitor key metrics in real time with instant updates and smart notifications.",
     "featureCompetitorTitle": "Competitive Analysis",
     "featureCompetitorDesc": "Compare performance with competitors and discover strategic improvement areas.",
-    "extBadge": "CHROME EXTENSION",
-    "extTitle": "Use NextBrand",
-    "extTitleHighlight": "everywhere",
-    "extDesc": "Our Chrome extension lets you analyze any social profile directly from your browser, without switching tabs.",
-    "extFeature1Title": "Quick Analysis",
-    "extFeature1Desc": "View metrics and insights of any Instagram profile with one click directly from the browser.",
-    "extFeature2Title": "Updated Data",
-    "extFeature2Desc": "Access the latest social profile data without leaving the page you are visiting.",
-    "extDownloading": "Downloading...",
-    "extAddToChrome": "Add to Chrome",
-    "extDemoTitle": "Analysis right in your browser",
-    "extDemoDesc": "Open the extension on any social profile and get instant insights with one click.",
     "faqBadge": "FAQ",
     "faqTitleBefore": "Frequently Asked",
     "faqTitleHighlight": "Questions",
-    "faqSubtitle": "Everything you need to know about NextBrand.",
+    "faqSubtitle": "Everything you need to know about Nexyflow.",
     "faqContactText": "Did not find what you were looking for?",
     "faqContactButton": "Contact Us",
     "footerDesc": "The all-in-one platform for creators and brands who want to scale their social presence with artificial intelligence.",
@@ -120,14 +108,8 @@
     "legalPrivacy": "Privacy Policy",
     "legalTerms": "Terms of Service",
     "legalContact": "Contact Us",
-    "copyright": "© {year} NextBrand. All rights reserved.",
+    "copyright": "© {year} Nexyflow. All rights reserved.",
     "poweredBy": "Powered by",
-    "extModalTitle": "Install the Extension",
-    "extModalDesc": "Follow these simple steps to install the NextBrand extension on your Chrome browser.",
-    "extModalStep1": "Open the extensions page:",
-    "extModalStep2": "Drag the downloaded .zip file into the extensions window.",
-    "extModalStep3": "Find the downloaded file:",
-    "extModalDone": "Done!",
     "socialMedia": "Social Media",
     "chatbotTitle": "AI Chat",
     "chatbotInput": "Type a message...",
@@ -322,13 +304,14 @@
     "profileTitle": "Public Profile",
     "nameLabel": "Name",
     "emailLabel": "Email",
+    "planLabel": "Active Plan",
     "notificationsTitle": "Notifications",
     "weeklyReport": "Weekly Reports",
     "weeklyReportDesc": "Receive a performance summary every Monday.",
     "aiAlerts": "AI Alerts",
     "aiAlertsDesc": "Notifications when AI detects unusual drops or spikes.",
     "productUpdates": "Product Updates",
-    "productUpdatesDesc": "News and new NextBrand features.",
+    "productUpdatesDesc": "News and new Nexyflow features.",
     "securityTitle": "Account Security",
     "securityDesc": "Your password was last updated {days} days ago.",
     "changePassword": "Change Password",
@@ -347,7 +330,18 @@
     "fillAllFields": "Fill all fields",
     "passwordTooShort": "New password must be at least 6 characters",
     "passwordsDoNotMatch": "New passwords do not match",
-    "passwordChangeError": "Password change error"
+    "passwordChangeError": "Password change error",
+    "logoutTitle": "Log out",
+    "logoutDesc": "End your session on this device. You can sign in again at any time.",
+    "logoutButton": "Log out",
+    "logoutModalTitle": "Do you really want to log out?",
+    "logoutModalDesc": "You will need to sign in again to use the dashboard.",
+    "logoutStep2Title": "Final confirmation",
+    "logoutStep2Desc": "Last confirmation: do you really want to end the session?",
+    "logoutContinue": "Continue",
+    "logoutBack": "Back",
+    "logoutCancel": "Cancel",
+    "logoutConfirm": "Log out"
   },
   "chat": {
     "title": "AI Chat",
@@ -376,7 +370,40 @@
     "logout": "Log Out",
     "deleteTitle": "Delete Chat",
     "deleteConfirm": "Are you sure you want to delete this chat?",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "tour": {
+      "title": "Welcome to the AI Chat",
+      "intro": "We'll show you in a few steps how to use the Nexyflow chat.",
+      "next": "Next",
+      "prev": "Back",
+      "skip": "Skip",
+      "done": "Start chatting",
+      "step": "Step {current} of {total}",
+      "replay": "Replay tour",
+      "close": "Close",
+      "steps": [
+        {
+          "title": "Write your message",
+          "body": "Type your social media question here. Ask for advice, analysis or growth strategies for Instagram, TikTok and YouTube."
+        },
+        {
+          "title": "Use quick suggestions",
+          "body": "Not sure where to start? Tap one of these suggestions to send a ready-made question right away."
+        },
+        {
+          "title": "Send the message",
+          "body": "Press the Send button (or Enter) to submit your question. While the AI is answering, you can stop it anytime."
+        },
+        {
+          "title": "Your chat history",
+          "body": "Your conversations are saved here. Create new ones, resume them anytime or delete them."
+        },
+        {
+          "title": "Your account",
+          "body": "Here you find your profile, active plan and settings. The chat only reads your data to give personalized answers, without ever performing actions."
+        }
+      ]
+    }
   },
   "contact": {
     "title": "Contact Us",
@@ -406,12 +433,12 @@
       "features": "Features"
     },
     "questions": {
-      "whatIsNextbrand": "What is NextBrand?",
-      "whatIsNextbrandA": "NextBrand is an all-in-one platform that uses AI to analyze and optimize your presence on Instagram, TikTok and YouTube.",
+      "whatIsNexyflow": "What is Nexyflow?",
+      "whatIsNexyflowA": "Nexyflow is an all-in-one platform that uses AI to analyze and optimize your presence on Instagram, TikTok and YouTube.",
       "howDoesAiWork": "How does AI analysis work?",
       "howDoesAiWorkA": "Connect your social profiles and our AI analyzes metrics like engagement, follower growth, content performance and trends.",
       "needTechnicalSkills": "Do I need technical skills?",
-      "needTechnicalSkillsA": "No! NextBrand is designed to be intuitive. Just connect your profiles and let the AI do the work.",
+      "needTechnicalSkillsA": "No! Nexyflow is designed to be intuitive. Just connect your profiles and let the AI do the work.",
       "supportedPlatforms": "Which platforms are supported?",
       "supportedPlatformsA": "We support Instagram, TikTok and YouTube. We're working on adding LinkedIn, Facebook and Twitter.",
       "freePlanLimitations": "Does the free plan have limitations?",
@@ -426,13 +453,13 @@
   },
   "terms": {
     "title": "Terms of Service",
-    "subtitle": "Terms and conditions for using the NextBrand platform.",
+    "subtitle": "Terms and conditions for using the Nexyflow platform.",
     "lastUpdated": "Last updated: {date}",
-    "intro": "Welcome to NextBrand. By using our platform, you agree to the following terms and conditions.",
+    "intro": "Welcome to Nexyflow. By using our platform, you agree to the following terms and conditions.",
     "section1Title": "1. Acceptance of Terms",
-    "section1Text": "By registering and using NextBrand, you agree to comply with these Terms of Service. If you do not agree, do not use the platform.",
+    "section1Text": "By registering and using Nexyflow, you agree to comply with these Terms of Service. If you do not agree, do not use the platform.",
     "section2Title": "2. Service Description",
-    "section2Text": "NextBrand provides AI-powered social media analysis tools, including metric monitoring, insight generation and strategic recommendations.",
+    "section2Text": "Nexyflow provides AI-powered social media analysis tools, including metric monitoring, insight generation and strategic recommendations.",
     "section3Title": "3. User Account",
     "section3Text": "You are responsible for maintaining the confidentiality of your credentials and for all activities under your account.",
     "section4Title": "4. User Conduct",
@@ -440,7 +467,7 @@
     "section5Title": "5. Plans and Payments",
     "section5Text": "Paid plans are billed according to the selected cycle. Cancellations are subject to plan terms.",
     "section6Title": "6. Limitation of Liability",
-    "section6Text": "NextBrand is not liable for indirect damages arising from use of the platform. Service is provided 'as is'."
+    "section6Text": "Nexyflow is not liable for indirect damages arising from use of the platform. Service is provided 'as is'."
   },
   "privacy": {
     "title": "Privacy Policy",

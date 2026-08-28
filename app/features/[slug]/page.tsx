@@ -17,8 +17,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const feature = features.find((f) => f.slug === slug)
   if (!feature) return {}
   return {
-    title: `${feature.title} | NextBrand`,
-    description: feature.description,
+    title: `${feature.title} | Nexyflow`,
+    description: feature.longDescription,
+    alternates: { canonical: `/features/${feature.slug}` },
   }
 }
 
@@ -28,8 +29,33 @@ export default async function FeaturePage({ params }: PageProps) {
 
   if (!feature) return notFound()
 
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://nexyflow.it/' },
+      { '@type': 'ListItem', position: 2, name: feature.title, item: `https://nexyflow.it/features/${feature.slug}` },
+    ],
+  }
+
+  const productLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `Nexyflow - ${feature.title}`,
+    description: feature.longDescription,
+    url: `https://nexyflow.it/features/${feature.slug}`,
+    provider: { '@type': 'Organization', name: 'Nexyflow', url: 'https://nexyflow.it' },
+    areaServed: 'IT',
+    audience: { '@type': 'Audience', audienceType: 'Social media creators and marketers' },
+  }
+
   return (
-    <div className="min-h-screen bg-white pt-24 pb-16">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbLd, productLd]) }}
+      />
+      <div className="min-h-screen bg-white pt-24 pb-16">
       <div className="max-w-4xl mx-auto px-4">
         <Link
           href="/#features"
@@ -104,6 +130,7 @@ export default async function FeaturePage({ params }: PageProps) {
           </Link>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   )
 }

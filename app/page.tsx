@@ -1,6 +1,4 @@
-'use client'
-
-import React from 'react'
+import type { Metadata } from 'next'
 import PricingSection from '@/components/PricingSection'
 import HeroSection from '@/components/HeroSection'
 import HowItWorksSection from '@/components/HowItWorksSection'
@@ -9,26 +7,44 @@ import FeaturesSection from '@/components/FeaturesSection'
 import AIChatSection from '@/components/AIChatSection'
 import FAQSection from '@/components/FAQSection'
 import Footer from '@/components/Footer'
-import ExtensionSection from '@/components/ExtensionSection'
-import { useAuth } from '@/context/AuthContext'
+import { faqs } from '@/lib/faq-data'
+
+export const metadata: Metadata = {
+  title: 'Nexyflow | Analisi Social Media con AI per Instagram, TikTok e YouTube',
+  description: "Analizza e ottimizza la tua presenza su Instagram, TikTok e YouTube con l'intelligenza artificiale. Ottieni insights, raccomandazioni personalizzate e fai crescere il tuo pubblico.",
+  alternates: { canonical: '/' },
+}
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+}
 
 export default function Home() {
-  const { user, loading } = useAuth()
-  if (loading) {
-    return <div className="min-h-screen bg-white pt-16"><div className="h-96 animate-pulse bg-gray-100 rounded-2xl mx-4"></div></div>
-  }
-
   return (
-    <div className="min-h-screen bg-white pt-16">
-      <HeroSection />
-      <AIChatSection />
-      <HowItWorksSection />
-      <PlatformsSection />
-      <FeaturesSection />
-      <ExtensionSection />
-      <PricingSection />
-      <FAQSection />
-      <Footer />
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <div className="min-h-screen bg-white">
+        <HeroSection />
+        <AIChatSection />
+        <HowItWorksSection />
+        <PlatformsSection />
+        <FeaturesSection />
+        <PricingSection />
+        <FAQSection />
+        <Footer />
+      </div>
+    </>
   )
 }
