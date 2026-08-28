@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server'
-import Stripe from 'stripe'
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
+import { getStripe } from '@/lib/clients'
 
 export async function POST(req: Request) {
   try {
+    const stripe = getStripe()
     const { planId, userId, userEmail } = await req.json()
 
     if (!planId) {

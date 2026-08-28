@@ -1,10 +1,9 @@
-import { Resend } from 'resend'
+import { getResend } from '@/lib/clients'
 
-const resendKey = process.env.RESEND_API_KEY
-const resend = resendKey ? new Resend(resendKey) : null
 const from = 'Nexyflow <onboarding@resend.dev>'
 
 export async function sendWelcomeEmail(name: string, email: string) {
+  const resend = getResend()
   if (!resend) return
   try {
     await resend.emails.send({
@@ -49,6 +48,7 @@ export async function sendWelcomeEmail(name: string, email: string) {
 }
 
 export async function sendWeeklyReport(name: string, email: string, stats: { followers: number; views: number; engagement: number; growth: number }) {
+  const resend = getResend()
   if (!resend) return
   try {
     await resend.emails.send({

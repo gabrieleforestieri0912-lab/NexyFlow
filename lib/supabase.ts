@@ -1,28 +1,41 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+let cached: SupabaseClient | null = null
 
-if (!supabaseUrl || !supabaseUrl.startsWith('http')) {
-  throw new Error(
-    'NEXT_PUBLIC_SUPABASE_URL non configurata correttamente. ' +
-    'Aggiorna il file .env con l\'URL del tuo progetto Supabase.'
-  )
-}
+function getClient(): SupabaseClient {
+  if (cached) return cached
 
-if (!supabaseKey) {
-  throw new Error(
-    'SUPABASE_SERVICE_ROLE_KEY non configurata. ' +
-    'Aggiorna il file .env con la Service Role Key del tuo progetto Supabase.'
-  )
-}
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-let cached = globalThis._supabase
+  if (!supabaseUrl || !supabaseUrl.startsWith('http')) {
+    throw new Error(
+      'NEXT_PUBLIC_SUPABASE_URL non configurata correttamente. ' +
+        'Imposta le Environment Variables su Vercel (o nel file .env).'
+    )
+  }
 
-if (!cached) {
-  cached = globalThis._supabase = createClient(supabaseUrl, supabaseKey, {
+  if (!supabaseKey) {
+    throw new Error(
+      'SUPABASE_SERVICE_ROLE_KEY non configurata. ' +
+        'Imposta le Environment Variables su Vercel (o nel file .env).'
+    )
+  }
+
+  cached = createClient(supabaseUrl, supabaseKey, {
     auth: { persistSession: false },
   })
+  return cached
 }
 
-export default cached
+const handler: ProxyHandler<SupabaseClient> = {
+  get(_target, prop, _receiver) {
+    const client = getClient()
+    const value = (client as unknown as Record<string | symbol, unknown>)[prop]
+    return typeof value === 'function' ? value.bind(client) : value
+  },
+}
+
+const supabase = new Proxy({} as SupabaseClient, handler)
+
+export default supabase

@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import { getResend } from "@/lib/clients";
 import User from "@/models/User";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const CODES: Record<string, { code: string; expiresAt: number }> =
   (globalThis as any)._verificationCodes ||
   ((globalThis as any)._verificationCodes = {});
@@ -29,6 +28,7 @@ export async function POST(request: Request) {
     const code = generateCode();
     CODES[email] = { code, expiresAt: Date.now() + 5 * 60 * 1000 };
 
+    const resend = getResend();
     try {
       const html = `
         <div style="max-width:480px;margin:0 auto;padding:32px 24px;font-family:Arial,sans-serif;background:#fff;border-radius:16px;border:1px solid #eee;">

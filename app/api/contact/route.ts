@@ -1,11 +1,14 @@
-import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
-
-const resend = new Resend(process.env.RESEND_API_KEY)
+import { getResend } from '@/lib/clients'
 
 export async function POST(req: Request) {
   try {
     const { name, email, message } = await req.json()
+    const resend = getResend()
+
+    if (!resend) {
+      return NextResponse.json({ error: 'Servizio email non configurato' }, { status: 503 })
+    }
 
     await resend.emails.send({
       from: 'Nexyflow <onboarding@resend.dev>',
