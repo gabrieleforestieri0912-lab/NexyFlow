@@ -1,5 +1,6 @@
 import { Geist } from 'next/font/google'
 import './globals.css'
+import { Analytics } from '@vercel/analytics/next'
 import { GAProvider } from '@/components/GAProvider'
 import { AuthProvider } from '@/context/AuthContext'
 import { LanguageProvider } from '@/context/LanguageContext'
@@ -200,6 +201,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </NavbarWrapper>
           </ToastProvider>
+          <Analytics />
         </LanguageProvider>
           </AuthProvider>
         </GAProvider>
