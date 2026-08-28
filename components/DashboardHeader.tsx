@@ -108,7 +108,7 @@ export default function DashboardHeader() {
   }, [])
 
   return (
-    <header className="sticky top-0 z-20 bg-[#0a0a12]/70 backdrop-blur-xl border-b border-white/6">
+    <header className="sticky top-0 z-20 bg-[#0a0a12] border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Breadcrumb / page title */}
         <div className="flex items-center gap-2 min-w-0">
