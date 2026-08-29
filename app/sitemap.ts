@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { features } from '@/lib/features-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://nexyflow.it'
+  const baseUrl = 'https://nexyflow.vercel.app'
   const today = new Date()
 
   const staticPages: MetadataRoute.Sitemap = [

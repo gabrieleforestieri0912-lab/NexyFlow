@@ -86,6 +86,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow,
       },
     ],
-    sitemap: 'https://nexyflow.it/sitemap.xml',
+    sitemap: 'https://nexyflow.vercel.app/sitemap.xml',
   }
 }

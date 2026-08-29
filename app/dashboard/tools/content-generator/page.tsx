@@ -55,7 +55,6 @@ export default function ContentGeneratorPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: prompts[activeTool],
-          model: 'llama3',
           history: [],
         }),
       })

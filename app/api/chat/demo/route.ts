@@ -38,6 +38,13 @@ export async function POST(request: NextRequest) {
     } catch (error: any) {
       console.error('Chat demo AI error:', error)
 
+      if (error.message?.includes('No OpenAI API key configured')) {
+        return NextResponse.json({
+          error: 'OpenAI API key not configured',
+          response: 'La chiave API di OpenAI non è configurata. Imposta OPENAI_API_KEY nelle variabili d\'ambiente.'
+        }, { status: 200 })
+      }
+
       if (error.cause?.code === 'ECONNREFUSED') {
         return NextResponse.json({
           error: 'Cannot connect to the AI model',

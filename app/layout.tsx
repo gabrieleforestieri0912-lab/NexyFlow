@@ -8,9 +8,6 @@ import { LanguageProvider } from '@/context/LanguageContext'
 import { ToastProvider } from '@/context/ToastContext'
 import NavbarWrapper from '@/components/NavbarWrapper'
 import CommandPalette from '@/components/CommandPalette'
-import { config } from '@fortawesome/fontawesome-svg-core'
-import '@fortawesome/fontawesome-svg-core/styles.css'
-config.autoAddCss = false
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,10 +26,10 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'Organization',
-      '@id': 'https://nexyflow.it/#organization',
+      '@id': 'https://nexyflow.vercel.app/#organization',
       name: 'Nexyflow',
-      url: 'https://nexyflow.it',
-      logo: 'https://nexyflow.it/nexyflow.png',
+      url: 'https://nexyflow.vercel.app',
+      logo: 'https://nexyflow.vercel.app/nexyflow.png',
       description: 'Nexyflow è una piattaforma di analisi dei social media basata sull\'intelligenza artificiale per Instagram, TikTok e YouTube.',
       foundingDate: '2025',
       contactPoint: [
@@ -40,7 +37,7 @@ const jsonLd = {
           '@type': 'ContactPoint',
           contactType: 'customer support',
           email: 'hello@nexyflow.it',
-          url: 'https://nexyflow.it/contact',
+          url: 'https://nexyflow.vercel.app/contact',
           areaServed: 'IT',
           availableLanguage: ['Italian', 'English'],
         },
@@ -48,20 +45,20 @@ const jsonLd = {
     },
     {
       '@type': 'WebSite',
-      '@id': 'https://nexyflow.it/#website',
-      url: 'https://nexyflow.it',
+      '@id': 'https://nexyflow.vercel.app/#website',
+      url: 'https://nexyflow.vercel.app',
       name: 'Nexyflow',
       description: "Analizza e ottimizza la tua presenza su Instagram, TikTok e YouTube con approfondimenti basati sull'IA.",
       inLanguage: 'it-IT',
-      publisher: { '@id': 'https://nexyflow.it/#organization' },
+      publisher: { '@id': 'https://nexyflow.vercel.app/#organization' },
     },
     {
       '@type': 'SoftwareApplication',
-      '@id': 'https://nexyflow.it/#software',
+      '@id': 'https://nexyflow.vercel.app/#software',
       name: 'Nexyflow',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      url: 'https://nexyflow.it',
+      url: 'https://nexyflow.vercel.app',
       description: "Piattaforma all-in-one di analisi social media con intelligenza artificiale. Ottieni insights su Instagram, TikTok e YouTube, strategie di crescita personalizzate e contenuti generati dall'AI.",
       offers: {
         '@type': 'AggregateOffer',
@@ -70,27 +67,27 @@ const jsonLd = {
         priceCurrency: 'EUR',
         offerCount: 4,
         offers: [
-          { '@type': 'Offer', name: 'Free', price: '0', priceCurrency: 'EUR', url: 'https://nexyflow.it/pricing' },
-          { '@type': 'Offer', name: 'Pro', price: '9.99', priceCurrency: 'EUR', url: 'https://nexyflow.it/pricing' },
-          { '@type': 'Offer', name: 'Business', price: '19.99', priceCurrency: 'EUR', url: 'https://nexyflow.it/pricing' },
-          { '@type': 'Offer', name: 'Enterprise', price: '29.99', priceCurrency: 'EUR', url: 'https://nexyflow.it/pricing' },
+          { '@type': 'Offer', name: 'Free', price: '0', priceCurrency: 'EUR', url: 'https://nexyflow.vercel.app/pricing' },
+          { '@type': 'Offer', name: 'Pro', price: '9.99', priceCurrency: 'EUR', url: 'https://nexyflow.vercel.app/pricing' },
+          { '@type': 'Offer', name: 'Business', price: '19.99', priceCurrency: 'EUR', url: 'https://nexyflow.vercel.app/pricing' },
+          { '@type': 'Offer', name: 'Enterprise', price: '29.99', priceCurrency: 'EUR', url: 'https://nexyflow.vercel.app/pricing' },
         ],
       },
     },
     {
       '@type': 'WebPage',
-      '@id': 'https://nexyflow.it/#webpage',
-      url: 'https://nexyflow.it',
+      '@id': 'https://nexyflow.vercel.app/#webpage',
+      url: 'https://nexyflow.vercel.app',
       name: 'Nexyflow | Analisi Social Media con AI',
       description: "Analizza e ottimizza la tua presenza su Instagram, TikTok e YouTube con l'intelligenza artificiale.",
       inLanguage: 'it-IT',
-      isPartOf: { '@id': 'https://nexyflow.it/#website' },
+      isPartOf: { '@id': 'https://nexyflow.vercel.app/#website' },
     },
   ],
 }
 
 export const metadata = {
-  metadataBase: new URL('https://nexyflow.it'),
+  metadataBase: new URL('https://nexyflow.vercel.app'),
   title: {
     default: 'Nexyflow | Analisi Social Media con AI per Instagram, TikTok e YouTube',
     template: '%s | Nexyflow',
@@ -98,7 +95,7 @@ export const metadata = {
   description: "Analizza e ottimizza la tua presenza su Instagram, TikTok e YouTube con l'intelligenza artificiale. Ottieni insights, raccomandazioni personalizzate e fai crescere il tuo pubblico.",
   keywords: ['analisi social media', 'analisi Instagram', 'analisi TikTok', 'analisi YouTube', 'IA social media', 'crescita follower', 'analisi engagement', 'social media analytics', 'AI marketing', 'growth hacking', 'tool analisi social', 'analisi profilo instagram gratis', 'aumentare follower', 'strategie contenuti AI', 'social media growth'],
   category: 'social media analytics',
-  authors: [{ name: 'Nexyflow', url: 'https://nexyflow.it' }],
+  authors: [{ name: 'Nexyflow', url: 'https://nexyflow.vercel.app' }],
   creator: 'Nexyflow',
   publisher: 'Nexyflow',
   alternates: {
@@ -107,7 +104,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'it_IT',
-    url: 'https://nexyflow.it',
+    url: 'https://nexyflow.vercel.app',
     siteName: 'Nexyflow',
     title: 'Nexyflow | Analisi Social Media con AI',
     description: "Analizza e ottimizza la tua presenza su Instagram, TikTok e YouTube con approfondimenti basati sull'IA.",

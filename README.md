@@ -14,7 +14,7 @@ Nexyflow analizza i profili Instagram, TikTok e YouTube con l'AI e aiuta i creat
 
 ## Sito
 
-- Dominio: [nexyflow.it](https://nexyflow.it)
+- Dominio: [nexyflow.vercel.app](https://nexyflow.vercel.app)
 - Supporto: hello@nexyflow.it
 
 ## Tech Stack
@@ -64,8 +64,7 @@ Il progetto è configurato per il deploy su [Vercel](https://vercel.com) tramite
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Pubblica (client) |
    | `SUPABASE_SERVICE_ROLE_KEY` | **Segreta** (server) |
    | `JWT_SECRET` | **Segreta** — genera con `openssl rand -hex 32` |
-   | `AI_PROVIDER=openai` | **Obbligatorio su Vercel** — il fallback Ollama locale non funziona in serverless |
-   | `OPENAI_API_KEY` | **Segreta** |
+   | `OPENAI_API_KEY` | **Obbligatoria** — chiave API OpenAI (unico provider AI supportato) |
    | `OPENAI_MODEL` | Default `gpt-4o-mini` (opzionale) |
    | `GOOGLE_CLIENT_ID` / `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | Pubblica |
    | `GOOGLE_CLIENT_SECRET` | **Segreta** |
@@ -75,7 +74,7 @@ Il progetto è configurato per il deploy su [Vercel](https://vercel.com) tramite
    | `RESEND_API_KEY` | **Segreta** |
    | `CONTACT_EMAIL` | Opzionale |
    | `NEXT_PUBLIC_GA_ID` | Pubblica (opzionale) |
-   | `NEXT_PUBLIC_APP_URL` | Es. `https://<progetto>.vercel.app`
+   | `NEXT_PUBLIC_APP_URL` | **Obbligatoria** — `https://nexyflow.vercel.app` |
    | `YOUTUBE_API_KEY` / `INSTAGRAM_*` / `TIKTOK_*` | Opzionali (dati reali) |
    | `CRON_SECRET` | **Segreta** (per Cron Jobs) |
 

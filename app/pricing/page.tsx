@@ -29,7 +29,7 @@ const offersJsonLd = {
         name: 'Free',
         price: '0',
         priceCurrency: 'EUR',
-        url: 'https://nexyflow.it/pricing',
+        url: 'https://nexyflow.vercel.app/pricing',
         description: '3 query AI al giorno, analisi di base, 1 piattaforma social, report settimanali.',
       },
       {
@@ -37,7 +37,7 @@ const offersJsonLd = {
         name: 'Pro',
         price: '9.99',
         priceCurrency: 'EUR',
-        url: 'https://nexyflow.it/pricing',
+        url: 'https://nexyflow.vercel.app/pricing',
         description: 'Query AI illimitate, analisi avanzate, 2 piattaforme, Content Generator AI.',
       },
       {
@@ -45,7 +45,7 @@ const offersJsonLd = {
         name: 'Business',
         price: '19.99',
         priceCurrency: 'EUR',
-        url: 'https://nexyflow.it/pricing',
+        url: 'https://nexyflow.vercel.app/pricing',
         description: 'Tutte le piattaforme, fino a 3 membri del team, analisi competitor avanzata.',
       },
       {
@@ -53,7 +53,7 @@ const offersJsonLd = {
         name: 'Enterprise',
         price: '29.99',
         priceCurrency: 'EUR',
-        url: 'https://nexyflow.it/pricing',
+        url: 'https://nexyflow.vercel.app/pricing',
         description: 'API access, team illimitato, account manager dedicato, SLA garantito.',
       },
     ],

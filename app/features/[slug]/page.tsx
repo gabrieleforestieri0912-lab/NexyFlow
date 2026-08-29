@@ -33,8 +33,8 @@ export default async function FeaturePage({ params }: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://nexyflow.it/' },
-      { '@type': 'ListItem', position: 2, name: feature.title, item: `https://nexyflow.it/features/${feature.slug}` },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://nexyflow.vercel.app/' },
+      { '@type': 'ListItem', position: 2, name: feature.title, item: `https://nexyflow.vercel.app/features/${feature.slug}` },
     ],
   }
 
@@ -43,8 +43,8 @@ export default async function FeaturePage({ params }: PageProps) {
     '@type': 'Service',
     name: `Nexyflow - ${feature.title}`,
     description: feature.longDescription,
-    url: `https://nexyflow.it/features/${feature.slug}`,
-    provider: { '@type': 'Organization', name: 'Nexyflow', url: 'https://nexyflow.it' },
+    url: `https://nexyflow.vercel.app/features/${feature.slug}`,
+    provider: { '@type': 'Organization', name: 'Nexyflow', url: 'https://nexyflow.vercel.app' },
     areaServed: 'IT',
     audience: { '@type': 'Audience', audienceType: 'Social media creators and marketers' },
   }

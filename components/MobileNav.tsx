@@ -2,12 +2,12 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, BarChart3, Lightbulb, Sparkles, FileText } from 'lucide-react'
+import { LayoutDashboard, BarChart3, Lightbulb, Link2, FileText } from 'lucide-react'
 
 const tabs = [
   { href: '/dashboard', label: 'Home', icon: LayoutDashboard, color: '#dc2743' },
   { href: '/dashboard/analytics', label: 'Analytics', icon: BarChart3, color: '#8b5cf6' },
-  { href: '/dashboard/analyze', label: 'Analizza', icon: Sparkles, color: '#dc2743' },
+  { href: '/dashboard/connect', label: 'Connetti', icon: Link2, color: '#06b6d4' },
   { href: '/dashboard/strategy', label: 'Strategia', icon: Lightbulb, color: '#f09433' },
   { href: '/dashboard/tools/content-generator', label: 'Contenuti', icon: FileText, color: '#f09433' },
 ]

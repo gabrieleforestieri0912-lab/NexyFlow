@@ -82,10 +82,17 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('Chat API error:', error)
 
+    if (error.message?.includes('No OpenAI API key configured')) {
+      return NextResponse.json({
+        error: 'OpenAI API key not configured',
+        response: 'La chiave API di OpenAI non è configurata. Imposta OPENAI_API_KEY nelle variabili d\'ambiente.'
+      }, { status: 500 })
+    }
+
     if (error.cause?.code === 'ECONNREFUSED') {
       return NextResponse.json({
         error: 'Cannot connect to the AI model',
-        response: 'I cannot connect to the AI model. If you configured an API key make sure it is valid, otherwise please make sure Ollama is running in your terminal with "ollama serve".'
+        response: 'I cannot connect to the AI model. Check that your API key is valid and that the provider service is reachable.'
       }, { status: 500 })
     }
 

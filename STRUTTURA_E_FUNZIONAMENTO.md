@@ -37,7 +37,7 @@ L'app utilizza **Supabase** come database per memorizzare le informazioni utente
 La dashboard offre un'esperienza utente premium con tema scuro avanzato (`#09090f`), mesh gradient e micro-animazioni.
 - **Home (`/dashboard`)**: Mostra metriche aggregate tramite grafici interattivi con Recharts (`AnalyticsChart.tsx`) e card statistiche dal design unico.
 - **Connect (`/dashboard/connect`)**: Consente di connettere/disconnettere Instagram, TikTok e YouTube. Se l'utente specifica un profilo, l'app tenta di scaricare i dati reali tramite le API social e cade su dati simulati controllati se le chiavi API non sono configurate.
-- **Strategy (`/dashboard/strategy`)**: Genera insight strategici e piani editoriali settimanali. Utilizza un modello AI locale (Ollama / Llama 3) e include una logica di fallback intelligente per generare suggerimenti basati sui canali dell'utente se Ollama non è avviato.
+- **Strategy (`/dashboard/strategy`)**: Genera insight strategici e piani editoriali settimanali. Utilizza OpenAI (configurato tramite `OPENAI_API_KEY`) e include una logica di fallback intelligente per generare suggerimenti basati sui canali dell'utente se la chiave API non è configurata.
 - **Content Generator (`/dashboard/tools/content-generator`)**: Strumento per la generazione di copy e script basato sui profili social dell'utente.
 
 
