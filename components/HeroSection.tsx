@@ -10,7 +10,6 @@ const platforms = ["Instagram", "TikTok", "YouTube"];
 export default function HeroSection() {
   const { t } = useLanguage();
   const [displayText, setDisplayText] = useState("");
-  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -65,14 +64,13 @@ export default function HeroSection() {
       />
       <video
         id="bg-video"
-        className={`hero-video transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
+        className="hero-video"
         aria-hidden="true"
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
-        onCanPlay={() => setVideoReady(true)}
         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260816_125506_3a597378-ec85-4ebd-bd22-03b45508ac62.mp4"
       />
 

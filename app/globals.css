@@ -751,7 +751,7 @@ select:hover {
 }
 
 .glass-panel--dark {
-  background: linear-gradient(150deg, rgba(9,9,15,0.4), rgba(9,9,15,0.2));
+  background: #09090f;
   border: 1px solid rgba(255,255,255,0.14);
   box-shadow: 0 10px 40px -12px rgba(0,0,0,0.4);
 }
